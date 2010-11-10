@@ -1,0 +1,15 @@
+en:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Errors: %{errors}"
+        invalid_email: "is not a valid address"
+        invalid_owner: "is not associated with your user"
+
+pt-BR:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Erros: %{errors}"
+        invalid_email: "não parece ser um e-mail válido"
+        invalid_owner: "não está associado ao seu usuário"
