@@ -31,41 +31,41 @@ describe ".validates_email_format_of" do
   it "should use default error message" do
     user = User.new(:email => "invalid")
     user.should_not be_valid
-    errors_for(user, :email).should == ["is not a valid address"]
+    user.errors[:email].should == ["is not a valid address"]
   end
 
   it "should reject nil value" do
     user = User.new(:email => nil)
     user.should_not be_valid
-    errors_for(user, :email).should_not be_empty
+    user.errors[:email].should_not be_empty
   end
 
   it "should reject empty value" do
     user = User.new(:email => "")
     user.should_not be_valid
-    errors_for(user, :email).should_not be_empty
+    user.errors[:email].should_not be_empty
   end
 
   it "should validate multiple attributes" do
     user = User.new(:corporate_email => "invalid")
     user.should_not be_valid
-    errors_for(user, :corporate_email).should == ["is not a valid address"]
+    user.errors[:corporate_email].should == ["is not a valid address"]
   end
 
   it "should use custom error message as :message options" do
     buyer = Buyer.new(:email => "invalid")
     buyer.should_not be_valid
-    errors_for(buyer, :email).should == ["is not a valid e-mail"]
+    buyer.errors[:email].should == ["is not a valid e-mail"]
   end
 
   it "should use I18n string as error message [pt-BR]" do
     I18n.locale = :'pt-BR'
     user = User.new(:email => "invalid")
     user.should_not be_valid
-    errors_for(user, :email).should == ["não parece ser um e-mail válido"]
+    user.errors[:email].should == ["não parece ser um e-mail válido"]
   end
 
-  def errors_for(record, attr_name)
-    record.errors[attr_name]
+  it "should have alias method" do
+    User.should respond_to(:validates_email)
   end
 end

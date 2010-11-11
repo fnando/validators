@@ -4,6 +4,7 @@ en:
       messages:
         record_invalid: "Errors: %{errors}"
         invalid_email: "is not a valid address"
+        invalid_url: "is not a valid address"
         invalid_owner: "is not associated with your user"
 
 pt-BR:
@@ -12,4 +13,5 @@ pt-BR:
       messages:
         record_invalid: "Erros: %{errors}"
         invalid_email: "não parece ser um e-mail válido"
+        invalid_url: "não parece ser uma URL válida"
         invalid_owner: "não está associado ao seu usuário"

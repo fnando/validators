@@ -22,6 +22,12 @@ Then add it to your Gemfile:
     validates :email, :email => true
   end
 
+=== validates_url_format_of
+
+  class User < ActiveRecord::Base
+    validates_url_format_of :site
+  end
+
 === validates_ownership_of
 
   class Task < ActiveRecord::Base

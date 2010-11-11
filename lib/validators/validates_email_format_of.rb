@@ -21,6 +21,8 @@ module ActiveModel
       def validates_email_format_of(*attr_names)
         validates_with EmailValidator, _merge_attributes(attr_names)
       end
+
+      alias_method :validates_email, :validates_email_format_of
     end
   end
 end
