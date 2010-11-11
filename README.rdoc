@@ -51,6 +51,14 @@ Then add it to your Gemfile:
   task.valid?
   #=> false
 
+=== validates_ip_address
+
+  class Server < ActiveRecord::Base
+    validates_ip_address :address
+    validates_ip_address :address, :only => :v4
+    validates_ip_address :address, :only => :v6
+  end
+
 == Maintainer
 
 * Nando Vieira - http://simplesideias.com.br
