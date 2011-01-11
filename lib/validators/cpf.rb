@@ -3,10 +3,10 @@ module Validators
     extend self
 
     def valid?(cpf_number)
-      cpf_number.gsub!(/\D+/i, '')
+      cpf_number.gsub!(/\D+/i, "")
 
       return false if cpf_number.nil?
-      return false if cpf_number.strip == ''
+      return false if cpf_number.strip == ""
       return false if cpf_number.size != 11
       return false if %W[00000000000 11111111111 22222222222 33333333333 44444444444 55555555555 66666666666 77777777777 88888888888 99999999999].include? cpf_number
 

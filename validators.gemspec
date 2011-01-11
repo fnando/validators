@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec", ">= 2.0.0"
   s.add_development_dependency "sqlite3-ruby"
   s.add_development_dependency "ruby-debug19"
-  s.add_development_dependency 'simplecov', '>= 0.3.7'
+  s.add_development_dependency "simplecov", ">= 0.3.7"
 end
