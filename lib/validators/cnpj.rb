@@ -3,10 +3,10 @@ module Validators
     extend self
 
     def valid?(cnpj_number)
-      cnpj_number.gsub!(/\D+/i, '')
+      cnpj_number.gsub!(/\D+/i, "")
 
       return false if cnpj_number.nil?
-      return false if cnpj_number.strip == ''
+      return false if cnpj_number.strip == ""
       return false if cnpj_number.size != 14
       return false if %W[00000000000000 11111111111111 22222222222222 33333333333333 44444444444444 55555555555555 66666666666666 77777777777777 88888888888888 99999999999999].include? cnpj_number
 

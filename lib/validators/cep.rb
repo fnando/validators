@@ -3,10 +3,10 @@ module Validators
     extend self
 
     def valid?(cep_number)
-      cep_number.gsub!(/\D+/i, '')
+      cep_number.gsub!(/\D+/i, "")
 
       return false if cep_number.nil?
-      return false if cep_number.strip == ''
+      return false if cep_number.strip == ""
       return false if cep_number.size != 8
 
       true
