@@ -1,3 +1,8 @@
+require 'simplecov'
+SimpleCov.start do
+  add_filter 'spec'
+end
+
 require "validators"
 
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f}
