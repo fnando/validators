@@ -3,6 +3,9 @@ en:
     errors:
       messages:
         record_invalid: "Errors: %{errors}"
+        invalid_date: "is not a valid date"
+        invalid_date_before: "needs to be before %{date}"
+        invalid_date_after: "needs to be after %{date}"
         invalid_email: "is not a valid address"
         invalid_url: "is not a valid address"
         invalid_ipv4_address: "is not a valid IPv4 address"
