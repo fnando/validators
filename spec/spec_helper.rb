@@ -4,6 +4,9 @@ SimpleCov.start do
 end
 
 require "validators"
+require "active_support/all"
+
+Time.zone = "America/Sao_Paulo"
 
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f}
 
@@ -15,6 +18,7 @@ I18n.load_path << File.dirname(__FILE__) + "/support/translations.yml"
 RSpec.configure do |config|
   config.before do
     I18n.locale = :en
+    Time.zone = "America/Sao_Paulo"
 
     ActiveRecord::Base.descendants.each do |model|
       model.delete_all

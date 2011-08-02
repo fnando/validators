@@ -59,6 +59,17 @@ Then add it to your Gemfile:
     validates_ip_address :address, :only => :v6
   end
 
+=== validates_datetime
+
+  class Server < ActiveRecord::Base
+    validates_datetime :starts_at
+    validates_datetime :ends_at, :after => :starts_at, :if => :starts_at?
+    validates_datetime :ends_at, :after => :now
+    validates_datetime :ends_at, :before => :today
+
+    validates :starts_at, :datetime => true
+  end
+
 == Maintainer
 
 * Nando Vieira - http://simplesideias.com.br
