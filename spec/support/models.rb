@@ -20,3 +20,8 @@ end
 class Person < ActiveRecord::Base
   set_table_name :users
 end
+
+class Company < ActiveRecord::Base
+  # validates :cnpj, :cnpj => true
+  # validates :url, :url => true
+end

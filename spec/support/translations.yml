@@ -12,6 +12,9 @@ en:
         invalid_ipv6_address: "is not a valid IPv6 address"
         invalid_address: "is not a valid IP address"
         invalid_owner: "is not associated with your user"
+        invalid_cep: "is not a valid cep number"
+        invalid_cnpj: "is not a valid cnpj number"
+        invalid_cpf: "is not a valid cpf number"
 
 pt-BR:
   activerecord:
@@ -21,3 +24,6 @@ pt-BR:
         invalid_email: "não parece ser um e-mail válido"
         invalid_url: "não parece ser uma URL válida"
         invalid_owner: "não está associado ao seu usuário"
+        invalid_cep: "não é um CEP válido"
+        invalid_cnpj: "não é um CNPJ válido"
+        invalid_cpf: "não é um CPF válido"
