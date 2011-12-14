@@ -1,3 +1,4 @@
+require "active_record"
 require "validators"
 require "active_support/all"
 

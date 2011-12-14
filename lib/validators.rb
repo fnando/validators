@@ -1,4 +1,3 @@
-require "active_record"
 require "validators/constants"
 require "validators/validates_datetime"
 require "validators/validates_ip_address"
