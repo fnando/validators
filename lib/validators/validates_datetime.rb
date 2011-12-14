@@ -68,7 +68,7 @@ module ActiveModel
     end
 
     module ClassMethods
-      # Validates weather or not the specified e-mail address is valid.
+      # Validates whether or not the specified e-mail address is valid.
       #
       #   class User < ActiveRecord::Base
       #     validates_datetime :birth

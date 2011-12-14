@@ -12,7 +12,7 @@ module ActiveModel
     end
 
     module ClassMethods
-      # Validates weather or not the specified URL is valid.
+      # Validates whether or not the specified URL is valid.
       #
       #   class User < ActiveRecord::Base
       #     validates_url_format_of :site

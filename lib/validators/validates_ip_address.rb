@@ -33,7 +33,7 @@ module ActiveModel
     end
 
     module ClassMethods
-      # Validates weather or not the specified URL is valid.
+      # Validates whether or not the specified URL is valid.
       #
       #   validates_ip_address :ip  #=> accepts both v4 and v6
       #   validates_ip_address :ip, :only => :v4
