@@ -1,5 +1,6 @@
 module Validators
-  EMAIL_FORMAT = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  # Source: http://guides.rubyonrails.org/security.html#regular-expressions
+  EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
   # Source: https://github.com/henrik/validates_url_format_of
   IPv4_PART = /\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]/  # 0-255
