@@ -1,5 +1,5 @@
 en:
-  activerecord:
+  activerecord: &activerecord
     errors:
       messages:
         record_invalid: "Errors: %{errors}"
@@ -12,12 +12,22 @@ en:
         invalid_ipv6_address: "is not a valid IPv6 address"
         invalid_address: "is not a valid IP address"
         invalid_owner: "is not associated with your user"
+        invalid_cpf: "is not a valid CPF"
+        invalid_cnpj: "is not a valid CNPJ"
+
+  activemodel:
+    <<: *activerecord
 
 pt-BR:
-  activerecord:
+  activerecord: &activerecord
     errors:
       messages:
         record_invalid: "Erros: %{errors}"
         invalid_email: "não parece ser um e-mail válido"
         invalid_url: "não parece ser uma URL válida"
         invalid_owner: "não está associado ao seu usuário"
+        invalid_cpf: "não é um CPF válido"
+        invalid_cnpj: "não é um CNPJ válido"
+
+  activemodel:
+    <<: *activerecord

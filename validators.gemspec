@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sqlite3-ruby"
   s.add_development_dependency "rake"
   s.add_development_dependency "pry-meta"
+  s.add_development_dependency "cpf_cnpj"
 end
