@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    validators (1.0.0)
+    validators (2.0.0)
 
 GEM
   remote: http://rubygems.org/
