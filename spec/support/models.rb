@@ -14,9 +14,9 @@ class Task < ActiveRecord::Base
 end
 
 class Buyer < ActiveRecord::Base
-  set_table_name :users
+  self.table_name = :users
 end
 
 class Person < ActiveRecord::Base
-  set_table_name :users
+  self.table_name = :users
 end

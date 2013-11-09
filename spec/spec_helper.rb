@@ -1,3 +1,6 @@
+require "bundler/setup"
+Bundler.setup
+
 require "active_record"
 require "validators"
 require "active_support/all"
@@ -17,8 +20,13 @@ RSpec.configure do |config|
     Time.zone = "America/Sao_Paulo"
 
     ActiveRecord::Base.descendants.each do |model|
+      next if model.name == "ActiveRecord::SchemaMigration"
+
       model.delete_all
-      Object.class_eval { remove_const model.name if const_defined?(model.name) }
+
+      Object.class_eval {
+        remove_const model.name if const_defined?(model.name)
+      }
     end
 
     load File.dirname(__FILE__) + "/support/models.rb"
