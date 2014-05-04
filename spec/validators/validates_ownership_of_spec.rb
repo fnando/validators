@@ -11,59 +11,59 @@ describe ".validates_ownership_of" do
     Task.validates_ownership_of :category, :with => :user
   end
 
-  it "should be valid when record is owned by the correct user" do
-    subject.should be_valid
+  it "is valid when record is owned by the correct user" do
+    expect(subject).to be_valid
   end
 
-  it "should not be valid when record is owned by a different user" do
+  it "is invalid when record is owned by a different user" do
     subject.category = another_category
-    subject.should_not be_valid
+    expect(subject).not_to be_valid
   end
 
-  it "should raise error without :with option" do
+  it "raises error without :with option" do
     expect {
       Task.validates_ownership_of :category
     }.to raise_error(ArgumentError)
   end
 
-  it "should raise error when :with options is not a valid type" do
+  it "raises error when :with options is not a valid type" do
     expect {
       Task.validates_ownership_of :category, :with => user
     }.to raise_error(ArgumentError)
   end
 
-  it "should not be valid when owner is not present" do
+  it "is invalid when owner is not present" do
     expect {
       subject.user = nil
-      subject.should_not be_valid
+      expect(subject).not_to be_valid
     }.to_not raise_error
   end
 
-  it "should not be valid when attribute owner is not present" do
+  it "is invalid when attribute owner is not present" do
     expect {
       subject.category.user = nil
-      subject.should_not be_valid
+      expect(subject).not_to be_valid
     }.to_not raise_error
   end
 
-  it "should be valid when both owners are nil" do
+  it "is valid when both owners are nil" do
     expect {
       subject.category.user = nil
       subject.user = nil
-      subject.should be_valid
+      expect(subject).to be_valid
     }.to_not raise_error
   end
 
-  it "should be valid when attribute is nil" do
+  it "is valid when attribute is nil" do
     expect {
       subject.category = nil
-      subject.should be_valid
+      expect(subject).to be_valid
     }.to_not raise_error
   end
 
-  it "should set error message" do
+  it "sets error message" do
     subject.user = nil
-    subject.should_not be_valid
-    subject.errors[:category].should == ["is not associated with your user"]
+    expect(subject).not_to be_valid
+    expect(subject.errors[:category]).to eq(["is not associated with your user"])
   end
 end

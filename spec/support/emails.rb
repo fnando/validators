@@ -35,22 +35,7 @@ VALID_EMAILS = [
   'valid@example.co.uk',
   'v@example.com',
   'valid@example.ca',
-  'valid_@example.com',
   'valid123.456@example.org',
-  'valid123.456@example.travel',
-  'valid123.456@example.museum',
   'valid@example.mobi',
   'valid@example.info',
-  'valid-@example.com',
-  # from RFC 3696, page 6
-  'customer/department=shipping@example.com',
-  '$A12345@example.com',
-  '!def!xyz%abc@example.com',
-  '_somename@example.com',
-  # apostrophes
-  "test'test@example.com",
-  # '"Abc\@def"@example.com',
-  # from http://www.rfc-editor.org/errata_search.php?rfc=3696
-  # '"Fred\ Bloggs"@example.com',
-  '"Joe.\\Blow"@example.com'
 ]
