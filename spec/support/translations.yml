@@ -28,6 +28,10 @@ pt-BR:
         invalid_owner: "não está associado ao seu usuário"
         invalid_cpf: "não é um CPF válido"
         invalid_cnpj: "não é um CNPJ válido"
+        invalid_ssh_public_key: "não é uma chave pública de SSH válida"
+        invalid_ssh_private_key: "não é uma chave privada de SSH válida"
+        invalid_ssh_private_key_type: "precisa ser uma chave %{value}"
+        invalid_ssh_private_key_bits: "precisa ter pelo menos %{required} bits; a sua chave tem %{value} bits"
 
   activemodel:
     <<: *activerecord

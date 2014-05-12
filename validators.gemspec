@@ -22,4 +22,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake"
   s.add_development_dependency "pry-meta"
   s.add_development_dependency "cpf_cnpj"
+  s.add_development_dependency "sshkey"
 end
