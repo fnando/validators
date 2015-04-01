@@ -12,7 +12,6 @@ VALID_URLS = [
   'http://user:pass@example.com',
   'http://user:@example.com',
   'http://example.com/~user',
-  'http://example.xy',  # Not a real TLD, but we're fine with anything of 2-6 chars
   'http://example.museum',
   'http://1.0.255.249',
   'http://1.2.3.4:80',
@@ -22,6 +21,7 @@ VALID_URLS = [
   'http://xn--rksmrgs-5wao1o.nu',  # Punycode
   'http://www.xn--rksmrgs-5wao1o.nu',
   'http://foo.bar.xn--rksmrgs-5wao1o.nu',
+  'http://example.xy',  # Only valid TLD
   'http://example.com.',  # Explicit TLD root period
   'http://example.com./foo'
 ]

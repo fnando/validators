@@ -33,6 +33,10 @@ end
 ```ruby
 class User < ActiveRecord::Base
   validates_url_format_of :site
+
+  # validates TLD against list of valid TLD.
+  # Loads ~5kb of text.
+  validates_url_format_of :site, tld: true
 end
 ```
 
