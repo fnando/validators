@@ -51,5 +51,15 @@ describe ".validates_url_format_of" do
       expect(user).not_to be_valid
       expect(user.errors[:url]).to eq(["não parece ser uma URL válida"])
     end
+
+    it "rejects nil urls" do
+      user = User.new(url: nil)
+      expect(user).not_to be_valid
+    end
+
+    it "rejects blank urls" do
+      user = User.new(url: '')
+      expect(user).not_to be_valid
+    end
   end
 end

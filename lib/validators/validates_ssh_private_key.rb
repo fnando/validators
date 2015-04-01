@@ -2,6 +2,9 @@ module ActiveModel
   module Validations
     class SshPrivateKeyValidator < EachValidator
       def validate_each(record, attribute, value)
+        return if value.blank? && options[:allow_blank]
+        return if value.nil? && options[:allow_nil]
+
         sshkey = SSHKey.new(value.to_s)
         validate_type(record, attribute, sshkey)
         validate_bits(record, attribute, sshkey)

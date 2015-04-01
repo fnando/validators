@@ -34,5 +34,15 @@ describe ".validates_hostname_format_of" do
         expect(server).not_to be_valid
       end
     end
+
+    it 'rejects nil hostname' do
+      server = ServerWithoutTLD.new(nil)
+      expect(server).not_to be_valid
+    end
+
+    it 'rejects blank hostname' do
+      server = ServerWithoutTLD.new('')
+      expect(server).not_to be_valid
+    end
   end
 end
