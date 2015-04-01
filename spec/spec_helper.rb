@@ -1,5 +1,7 @@
-require "bundler/setup"
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 
+require "bundler/setup"
 require "active_record"
 require "validators"
 require "active_support/all"

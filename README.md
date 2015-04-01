@@ -1,5 +1,9 @@
 # Validators
 
+[![Build Status](https://travis-ci.org/fnando/validators.svg)](https://travis-ci.org/fnando/validators)
+[![Code Climate](https://codeclimate.com/github/fnando/validators/badges/gpa.svg)](https://codeclimate.com/github/fnando/validators)
+[![Test Coverage](https://codeclimate.com/github/fnando/validators/badges/coverage.svg)](https://codeclimate.com/github/fnando/validators)
+
 Add some nice Rails 3 ActiveRecord validators.
 
 ## Installation

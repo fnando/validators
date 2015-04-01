@@ -23,4 +23,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry-meta"
   s.add_development_dependency "cpf_cnpj"
   s.add_development_dependency "sshkey"
+  s.add_development_dependency "codeclimate-test-reporter"
 end
