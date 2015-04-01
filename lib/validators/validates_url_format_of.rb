@@ -18,9 +18,11 @@ module ActiveModel
 
       def url?(url)
         uri = URI(url)
+        regex = options[:tld] ? Validators::URL_FORMAT_WITHOUT_TLD_VALIDATION :
+                                Validators::URL_FORMAT
 
         uri.kind_of?(URI::HTTP) &&
-        url.match(Validators::URL_FORMAT) &&
+        url.match(regex) &&
         valid_tld?(uri.host)
       rescue URI::InvalidURIError
         false

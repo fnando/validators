@@ -20,3 +20,40 @@ end
 class Person < ActiveRecord::Base
   self.table_name = :users
 end
+
+class UserWithTLD
+  include ActiveModel::Validations
+  attr_accessor :url
+
+  validates_url_format_of :url, tld: true
+
+  def self.name
+    'User'
+  end
+
+  def initialize(url)
+    @url = url
+  end
+end
+
+class ServerWithoutTLD
+  include ActiveModel::Validations
+  attr_accessor :host
+
+  validates_hostname :host
+
+  def initialize(host)
+    @host = host
+  end
+end
+
+class ServerWithTLD
+  include ActiveModel::Validations
+  attr_accessor :host
+
+  validates_hostname :host, tld: true
+
+  def initialize(host)
+    @host = host
+  end
+end

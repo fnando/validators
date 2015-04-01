@@ -3,31 +3,14 @@ require "spec_helper"
 
 describe ".validates_url_format_of" do
   context "validating TLD" do
-    let(:user_class) {
-      Class.new do
-        include ActiveModel::Validations
-        attr_accessor :url
-
-        validates_url_format_of :url, tld: true
-
-        def self.name
-          'User'
-        end
-
-        def initialize(url)
-          @url = url
-        end
-      end
-    }
-
-    it 'rejects invalid TLD' do
-      user = user_class.new('http://example.xy')
+    it "rejects invalid TLD" do
+      user = UserWithTLD.new('http://example.xy')
       expect(user).not_to be_valid
     end
 
-    ActiveModel::Validations::UrlValidator.tlds do |tld|
+    TLDs.each do |tld|
       it "accepts #{tld} as TLD" do
-        user = user_class.new("http://example.#{tld}")
+        user = UserWithTLD.new("http://example.#{tld}")
         expect(user).to be_valid
       end
     end

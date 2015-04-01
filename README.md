@@ -104,6 +104,25 @@ class User < ActiveRecord::Base
 end
 ```
 
+### validates_hostname
+
+Rules:
+
+- maximum length of hostname is 255 characters
+- maximum length of each hostname label is 63 characters
+- characters allowed in hostname labels are a-z, A-Z, 0-9 and hyphen
+- labels do not begin or end with a hyphen
+- labels do not consist of numeric values only
+- TLD validation (optional)
+
+
+```ruby
+class Server < ActiveRecord::Base
+  validates_hostname :hostname
+  validates_hostname :hostname, tld: true
+end
+```
+
 ## Maintainer
 
 * [Nando Vieira](http://simplesideias.com.br)

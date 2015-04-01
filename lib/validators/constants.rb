@@ -14,4 +14,15 @@ module Validators
     ([/?]\S*)?                                                   # optional /whatever or ?whatever
     \z
   ]ixs
+
+  URL_FORMAT_WITHOUT_TLD_VALIDATION = %r[
+    \A
+    https?://                                                    # http:// or https://
+    ([^\s:@]+:[^\s:@]*@)?                                        # optional username:pw@
+    ( (([^\W_]+\.)*xn--)?[^\W_]+([-.][^\W_]+)*\..{2,}\.? |       # domain (including Punycode/IDN)...
+        #{IPv4_PART}(\.#{IPv4_PART}){3} )                        # or IPv4
+    (:\d{1,5})?                                                  # optional port
+    ([/?]\S*)?                                                   # optional /whatever or ?whatever
+    \z
+  ]ixs
 end
