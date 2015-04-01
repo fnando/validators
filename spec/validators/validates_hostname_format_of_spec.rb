@@ -18,6 +18,11 @@ describe ".validates_hostname_format_of" do
         expect(server).to be_valid
       end
     end
+
+    it "accepts example.com.br" do
+      server = ServerWithTLD.new("example.com.br")
+      expect(server).to be_valid
+    end
   end
 
   context "without TLD validation" do

@@ -7,7 +7,7 @@ require "validators"
 require "active_support/all"
 
 Time.zone = "America/Sao_Paulo"
-TLDs = ActiveModel::Validations::UrlValidator.tlds.sample(100)
+TLDs = Validators::TLD.all.sample(100)
 
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f}
 

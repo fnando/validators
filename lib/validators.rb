@@ -1,6 +1,7 @@
 module Validators
   require "validators/constants"
   require "validators/ip"
+  require "validators/tld"
   require "validators/validates_datetime"
   require "validators/validates_ip_address"
   require "validators/validates_email_format_of"

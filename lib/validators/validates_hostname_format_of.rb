@@ -38,10 +38,7 @@ module ActiveModel
 
       def valid_tld?(host)
         return true unless options[:tld]
-        return false if host.split('.').size == 1
-
-        tld = host[/\.(.*?)$/, 1].to_s.downcase
-        UrlValidator.tlds.include?(tld)
+        Validators::TLD.host_with_valid_tld?(host)
       end
     end
 

@@ -1,12 +1,6 @@
 module ActiveModel
   module Validations
     class UrlValidator < EachValidator
-      TLD_FILE_PATH = File.expand_path('../../../data/tld.txt', __FILE__)
-
-      def self.tlds
-        @tld ||= File.read(TLD_FILE_PATH).lines.map(&:chomp)
-      end
-
       def validate_each(record, attribute, value)
         return if value.blank? && options[:allow_blank]
         return if value.nil? && options[:allow_nil]
@@ -32,9 +26,7 @@ module ActiveModel
 
       def valid_tld?(host)
         return true unless options[:tld]
-        tld = host[/\.(.*?)$/, 1].to_s.downcase
-
-        self.class.tlds.include?(tld)
+        Validators::TLD.host_with_valid_tld?(host)
       end
     end
 
