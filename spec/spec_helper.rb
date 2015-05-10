@@ -7,7 +7,8 @@ require "validators"
 require "active_support/all"
 
 Time.zone = "America/Sao_Paulo"
-TLDs = Validators::TLD.all.sample(100)
+TLDs = Validators::TLD.all.sample(50)
+DISPOSABLE_EMAILS = Validators::DisposableHostnames.all.sample(50)
 
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f}
 

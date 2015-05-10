@@ -32,6 +32,14 @@ class User < ActiveRecord::Base
 end
 ```
 
+By default, it rejects disposable e-mails (e.g. mailinator). This loads ~15kb, but you can disable this validation by settings `disposable: true`.
+
+```ruby
+class User < ActiveRecord::Base
+  validates_email_format_of :email, disposable: true
+end
+```
+
 ### validates_url_format_of
 
 ```ruby

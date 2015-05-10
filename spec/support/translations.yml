@@ -14,6 +14,7 @@ en:
         invalid_owner: "is not associated with your user"
         invalid_cpf: "is not a valid CPF"
         invalid_cnpj: "is not a valid CNPJ"
+        disposable_email: "is not allowed (high-bounce domain)"
 
   activemodel:
     <<: *activerecord
