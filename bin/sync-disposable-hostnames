@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'open-uri'
+require 'json'
+
+domains = JSON.load(open('https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json').read)
+domains += JSON.load(open('https://raw.githubusercontent.com/lavab/disposable/master/domains.json').read)
+
+domains.uniq!
+domains.sort!
+
+File.open('./data/disposable.json', 'w') do |file|
+  file << JSON.pretty_generate(domains)
+end
