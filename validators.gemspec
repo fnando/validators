@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Nando Vieira"]
   s.email       = ["fnando.vieira@gmail.com"]
   s.homepage    = "http://rubygems.org/gems/validators"
-  s.summary     = "Add some nice ActiveRecord validators."
+  s.summary     = "Add some nice ActiveModel/ActiveRecord validators."
   s.description = s.summary
   s.license     = 'MIT'
 

@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/fnando/validators/badges/gpa.svg)](https://codeclimate.com/github/fnando/validators)
 [![Test Coverage](https://codeclimate.com/github/fnando/validators/badges/coverage.svg)](https://codeclimate.com/github/fnando/validators)
 
-Add some nice Rails 3 ActiveRecord validators.
+Add some nice ActiveModel/ActiveRecord validators.
 
 ## Installation
 
