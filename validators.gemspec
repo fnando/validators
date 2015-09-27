@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://rubygems.org/gems/validators"
   s.summary     = "Add some nice ActiveRecord validators."
   s.description = s.summary
+  s.license     = 'MIT'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
