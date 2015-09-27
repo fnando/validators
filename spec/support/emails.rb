@@ -26,16 +26,16 @@ INVALID_EMAILS = [
 ]
 
 VALID_EMAILS = [
-  'valid@example.com',
-  'Valid@test.example.com',
-  'valid+valid123@test.example.com',
-  'valid_valid123@test.example.com',
-  'valid-valid+123@test.example.co.uk',
-  'valid-valid+1.23@test.example.com.au',
-  'valid@example.co.uk',
-  'v@example.com',
-  'valid@example.ca',
-  'valid123.456@example.org',
-  'valid@example.mobi',
-  'valid@example.info',
+  'valid@somedomain.com',
+  'Valid@test.somedomain.com',
+  'valid+valid123@test.somedomain.com',
+  'valid_valid123@test.somedomain.com',
+  'valid-valid+123@test.somedomain.co.uk',
+  'valid-valid+1.23@test.somedomain.com.au',
+  'valid@somedomain.co.uk',
+  'v@somedomain.com',
+  'valid@somedomain.ca',
+  'valid123.456@somedomain.org',
+  'valid@somedomain.mobi',
+  'valid@somedomain.info',
 ]

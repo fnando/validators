@@ -21,7 +21,7 @@ module ActiveModel
       end
 
       def validate_disposable_email(record, attribute, value, options)
-        hostname = value.to_s.split("@").last
+        hostname = value.to_s.split("@").last.to_s.downcase
 
         record.errors.add(
           attribute, :disposable_email,

@@ -39,11 +39,12 @@ describe ".validates_datetime" do
 
   context "after option" do
     it "rejects when date is set to before :after option" do
-      User.validates_datetime :registered_at, :after => 1.week.from_now
+      future_date = 1.week.from_now
+      User.validates_datetime :registered_at, :after => future_date
       subject.registered_at = Time.now
 
       expect(subject).not_to be_valid
-      expect(subject.errors[:registered_at]).to eq(["needs to be after #{I18n.l(1.week.from_now)}"])
+      expect(subject.errors[:registered_at]).to eq(["needs to be after #{I18n.l(future_date)}"])
     end
 
     it "accepts when date is set accordingly to the :after option" do
