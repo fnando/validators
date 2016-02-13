@@ -22,7 +22,8 @@ INVALID_EMAILS = [
   'Fred\ Bloggs_@example.com',
   'Abc\@def+@example.com',
   'Joe.\\Blow@example.com',
-  "invalid@invalid.invalid"
+  "invalid@invalid.invalid",
+  "invalid@some'domain.com",
 ]
 
 VALID_EMAILS = [
@@ -38,4 +39,5 @@ VALID_EMAILS = [
   'valid123.456@somedomain.org',
   'valid@somedomain.mobi',
   'valid@somedomain.info',
+  "valido'valid@somedomain.com",
 ]
