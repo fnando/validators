@@ -1,6 +1,6 @@
-require "spec_helper"
+require "test_helper"
 
-describe ".validates_cnpj_format_of" do
+class ValidatesCnpjFormatOfTest < Minitest::Test
   let(:model) { Class.new {
     def self.name
       "User"
@@ -11,33 +11,33 @@ describe ".validates_cnpj_format_of" do
     attr_accessor :document
   } }
 
-  it "requires valid CNPJ" do
+  test "requires valid CNPJ" do
     record = model.new(document: "invalid")
     record.valid?
 
-    expect(record.errors[:document]).not_to be_empty
+    refute record.errors[:document].empty?
   end
 
-  it "accepts formatted CNPJ" do
+  test "accepts formatted CNPJ" do
     record = model.new(document: CNPJ.generate(true))
     record.valid?
 
-    expect(record.errors[:document]).to be_empty
+    assert record.errors[:document].empty?
   end
 
-  it "accepts stripped CNPJ" do
+  test "accepts stripped CNPJ" do
     record = model.new(document: CNPJ.generate)
     record.valid?
 
-    expect(record.errors[:document]).to be_empty
+    assert record.errors[:document].empty?
   end
 
-  it "sets translated error message" do
+  test "sets translated error message" do
     I18n.locale = "pt-BR"
 
     record = model.new
     record.valid?
 
-    expect(record.errors[:document]).to include("não é um CNPJ válido")
+    assert_includes record.errors[:document], "não é um CNPJ válido"
   end
 end

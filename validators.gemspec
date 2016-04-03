@@ -1,7 +1,7 @@
 require "./lib/validators/version"
 
 Gem::Specification.new do |s|
-  s.required_ruby_version = ">= 1.9"
+  s.required_ruby_version = ">= 2.0"
   s.name        = "validators"
   s.version     = Validators::Version::STRING
   s.platform    = Gem::Platform::RUBY
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_development_dependency "activerecord", ">= 3.0"
-  s.add_development_dependency "rspec"
+  s.add_development_dependency "minitest-utils"
   s.add_development_dependency "sqlite3-ruby"
   s.add_development_dependency "rake"
   s.add_development_dependency "pry-meta"

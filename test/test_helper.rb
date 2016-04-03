@@ -6,6 +6,9 @@ require "active_record"
 require "validators"
 require "active_support/all"
 
+require "minitest/utils"
+require "minitest/autorun"
+
 Time.zone = "America/Sao_Paulo"
 TLDs = Validators::TLD.all.sample(50)
 DISPOSABLE_EMAILS = Validators::DisposableHostnames.all.sample(50)
@@ -18,21 +21,23 @@ load "schema.rb"
 I18n.enforce_available_locales = false
 I18n.load_path << File.dirname(__FILE__) + "/support/translations.yml"
 
-RSpec.configure do |config|
-  config.before do
-    I18n.locale = :en
-    Time.zone = "America/Sao_Paulo"
+module Minitest
+  class Test
+    setup do
+      I18n.locale = :en
+      Time.zone = "America/Sao_Paulo"
 
-    ActiveRecord::Base.descendants.each do |model|
-      next if model.name == "ActiveRecord::SchemaMigration"
+      ActiveRecord::Base.descendants.each do |model|
+        next if model.name == "ActiveRecord::SchemaMigration"
 
-      model.delete_all
+        model.delete_all
 
-      Object.class_eval {
-        remove_const model.name if const_defined?(model.name)
-      }
+        Object.class_eval {
+          remove_const model.name if const_defined?(model.name)
+        }
+      end
+
+      load File.dirname(__FILE__) + "/support/models.rb"
     end
-
-    load File.dirname(__FILE__) + "/support/models.rb"
   end
 end

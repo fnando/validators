@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-By default, it rejects disposable e-mails (e.g. mailinator). This loads ~15kb, but you can disable this validation by setting `disposable: false`.
+By default, it rejects disposable e-mails (e.g. mailinator). This loads ~15kb, but you can disable this validation by setting `disposable: true`.
 
 ```ruby
 class User < ActiveRecord::Base
