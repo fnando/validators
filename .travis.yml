@@ -10,6 +10,19 @@ rvm:
   - '2.2'
   - '2.1'
   - '2.0'
+gemfile:
+  - gemfiles/ar_3.gemfile
+  - gemfiles/ar_4.gemfile
+  - gemfiles/ar_5.gemfile
+matrix:
+  fast_finish: true
+  exclude:
+    - rvm: 2.0
+      gemfile: gemfiles/ar_5.gemfile
+    - rvm: 2.1
+      gemfile: gemfiles/ar_5.gemfile
+    - rvm: 2.2
+      gemfile: gemfiles/ar_5.gemfile
 addons:
   code_climate:
     repo_token:
