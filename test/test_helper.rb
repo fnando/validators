@@ -1,5 +1,5 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+require "simplecov"
+SimpleCov.start
 
 require "bundler/setup"
 require "active_record"
@@ -28,7 +28,10 @@ module Minitest
       Time.zone = "America/Sao_Paulo"
 
       ActiveRecord::Base.descendants.each do |model|
-        next if model.name == "ActiveRecord::SchemaMigration"
+        next if [
+          "ActiveRecord::SchemaMigration",
+          "ActiveRecord::InternalMetadata"
+        ].include? model.name
 
         model.delete_all
 
