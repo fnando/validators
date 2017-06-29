@@ -1,5 +1,5 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+require "simplecov"
+SimpleCov.start
 
 require "bundler/setup"
 require "active_record"
@@ -13,9 +13,9 @@ Time.zone = "America/Sao_Paulo"
 TLDs = Validators::TLD.all.sample(50)
 DISPOSABLE_EMAILS = Validators::DisposableHostnames.all.sample(50)
 
-Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f}
+Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f }
 
-ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":memory:"
+ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 load "schema.rb"
 
 I18n.enforce_available_locales = false
@@ -28,13 +28,11 @@ module Minitest
       Time.zone = "America/Sao_Paulo"
 
       ActiveRecord::Base.descendants.each do |model|
-        next if model.name == "ActiveRecord::SchemaMigration"
+        next if %w[ActiveRecord::InternalMetadata ActiveRecord::SchemaMigration].include?(model.name)
 
         model.delete_all
 
-        Object.class_eval {
-          remove_const model.name if const_defined?(model.name)
-        }
+        Object.class_eval { remove_const model.name if const_defined?(model.name) }
       end
 
       load File.dirname(__FILE__) + "/support/models.rb"

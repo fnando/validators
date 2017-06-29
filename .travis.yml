@@ -5,11 +5,12 @@ script: bundle exec rake
 notifications:
   email: false
 rvm:
+  - '2.4.1'
   - '2.3.0'
-  - '2.2'
-  - '2.1'
-  - '2.0'
+  - '2.2.7'
 addons:
   code_climate:
     repo_token:
       secure: CX0AIDehELC1kcnvfeLLnhKpX68OCh7OhyRuFhJbMLt9NEu5FjLJgR3IF4V/e+BeyUIEi+xidi/Xa9j+06BbCGtjGmmgTde/Zp9qpVHOwsiGXYn4zkZZmudUQXdF/S3CrBkwauXC8HTUS1OIeGylK5fhW/fz+PpwU7ocQahrhvc=
+after_success:
+- bundle exec codeclimate-test-reporter
