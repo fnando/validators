@@ -1,5 +1,6 @@
 module Validators
-  EMAIL_FORMAT = /\A[a-z0-9]+([-._][a-z0-9]+)*(\+[^@]+)?@[a-z0-9]+([.-][a-z0-9]+)*\.[a-z]{2,4}\z/i
+  # Support long suffix domain, like: .museum, .fitness
+  EMAIL_FORMAT = /\A[a-z0-9]+([-._][a-z0-9]+)*(\+[^@]+)?@[a-z0-9]+([.-][a-z0-9]+)*\.[a-z]{2,}\z/i
 
   # Source: https://github.com/henrik/validates_url_format_of
   IPv4_PART = /\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]/  # 0-255
