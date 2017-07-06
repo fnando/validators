@@ -21,21 +21,21 @@ INVALID_EMAILS = [
   # corrected in http://www.rfc-editor.org/errata_search.php?rfc=3696
   'Fred\ Bloggs_@example.com',
   'Abc\@def+@example.com',
-  'Joe.\\Blow@example.com',
-  "invalid@invalid.invalid"
+  'Joe.\\Blow@example.com'
 ]
 
-VALID_EMAILS = [
-  'valid@somedomain.com',
-  'Valid@test.somedomain.com',
-  'valid+valid123@test.somedomain.com',
-  'valid_valid123@test.somedomain.com',
-  'valid-valid+123@test.somedomain.co.uk',
-  'valid-valid+1.23@test.somedomain.com.au',
-  'valid@somedomain.co.uk',
-  'v@somedomain.com',
-  'valid@somedomain.ca',
-  'valid123.456@somedomain.org',
-  'valid@somedomain.mobi',
-  'valid@somedomain.info',
+VALID_EMAILS = %w[
+  valid@somedomain.com
+  Valid@test.somedomain.com
+  valid+valid123@test.somedomain.com
+  valid_valid123@test.somedomain.com
+  valid-valid+123@test.somedomain.co.uk
+  valid-valid+1.23@test.somedomain.com.au
+  valid@somedomain.co.uk
+  v@somedomain.com
+  valid@somedomain.ca
+  valid123.456@somedomain.org
+  valid@somedomain.mobi
+  valid@somedomain.info
+  valid@somedomain.target
 ]
