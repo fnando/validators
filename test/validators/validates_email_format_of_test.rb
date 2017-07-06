@@ -19,10 +19,10 @@ class ValidatesEmailFormatOfTest < Minitest::Test
 
   INVALID_EMAILS.each do |email|
     test "rejects #{email.inspect} as a valid email" do
-      user = User.new(:email => "invalid", :corporate_email => "invalid")
+      user = User.new(:email => email, :corporate_email => email)
       refute user.valid?
 
-      user = Person.new(:email => "invalid")
+      user = Person.new(:email => email)
       refute user.valid?
     end
   end
