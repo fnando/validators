@@ -57,3 +57,14 @@ class ServerWithTLD
     @host = host
   end
 end
+
+class Site
+  include ActiveModel::Validations
+  attr_accessor :slug
+
+  validates_subdomain :slug
+
+  def initialize(slug)
+    @slug = slug
+  end
+end

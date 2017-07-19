@@ -135,6 +135,22 @@ class Server < ActiveRecord::Base
 end
 ```
 
+### validates_subdomain
+
+Rules:
+
+- maximum length is 63 characters
+- characters allowed are a-z, A-Z, 0-9 and hyphen
+- labels do not begin or end with a hyphen
+- labels do not consist of numeric values only
+
+
+```ruby
+class Site < ActiveRecord::Base
+  validates_subdomain :slug
+end
+```
+
 ## Maintainer
 
 * [Nando Vieira](http://simplesideias.com.br)

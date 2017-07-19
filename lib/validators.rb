@@ -15,4 +15,5 @@ module Validators
   require "validators/validates_ssh_private_key"
   require "validators/validates_ssh_public_key"
   require "validators/validates_hostname_format_of"
+  require "validators/validates_subdomain_format_of"
 end
