@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   validates_email_format_of :email
 
   # alternative way
-  validates :email, :email => true
+  validates :email, email: true
 end
 ```
 
@@ -37,6 +37,14 @@ By default, it rejects disposable e-mails (e.g. mailinator). This loads ~15kb, b
 ```ruby
 class User < ActiveRecord::Base
   validates_email_format_of :email, disposable: true
+end
+```
+
+You can also validate the tld.
+
+```ruby
+class User < ActiveRecord::Base
+  validates_email_format_of :email, tld: true
 end
 ```
 

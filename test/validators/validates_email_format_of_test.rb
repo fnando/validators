@@ -2,9 +2,9 @@ require "test_helper"
 
 class ValidatesEmailFormatOfTest < Minitest::Test
   setup do
-    User.validates_email_format_of :email, :corporate_email, :allow_blank => false
-    Buyer.validates_email_format_of :email, :message => "is not a valid e-mail"
-    Person.validates :email, :email => true
+    User.validates_email_format_of :email, :corporate_email, allow_blank: false
+    Buyer.validates_email_format_of :email, message: "is not a valid e-mail"
+    Person.validates :email, email: true
   end
 
   VALID_EMAILS.each do |email|
@@ -19,10 +19,10 @@ class ValidatesEmailFormatOfTest < Minitest::Test
 
   INVALID_EMAILS.each do |email|
     test "rejects #{email.inspect} as a valid email" do
-      user = User.new(:email => "invalid", :corporate_email => "invalid")
+      user = User.new(:email => email, :corporate_email => "invalid")
       refute user.valid?
 
-      user = Person.new(:email => "invalid")
+      user = Person.new(:email => email)
       refute user.valid?
     end
   end
@@ -72,5 +72,12 @@ class ValidatesEmailFormatOfTest < Minitest::Test
 
   test "defines alias method" do
     assert User.respond_to?(:validates_email)
+  end
+
+  test "rejects invalid tld" do
+    user = EmailWithTLD.new(email: "john@example.zaz")
+
+    refute user.valid?
+    assert_includes user.errors[:email], "does not have a valid hostname"
   end
 end

@@ -21,8 +21,7 @@ INVALID_EMAILS = [
   # corrected in http://www.rfc-editor.org/errata_search.php?rfc=3696
   'Fred\ Bloggs_@example.com',
   'Abc\@def+@example.com',
-  'Joe.\\Blow@example.com',
-  "invalid@invalid.invalid"
+  'Joe.\\Blow@example.com'
 ]
 
 VALID_EMAILS = [

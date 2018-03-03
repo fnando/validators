@@ -17,12 +17,12 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_development_dependency "activerecord", ">= 3.0"
+  s.add_development_dependency "activerecord"
   s.add_development_dependency "minitest-utils"
   s.add_development_dependency "sqlite3-ruby"
   s.add_development_dependency "rake"
   s.add_development_dependency "pry-meta"
   s.add_development_dependency "cpf_cnpj"
   s.add_development_dependency "sshkey"
-  s.add_development_dependency "codeclimate-test-reporter"
+  s.add_development_dependency "simplecov"
 end

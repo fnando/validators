@@ -4,6 +4,7 @@ module Validators
   require "validators/constants"
   require "validators/ip"
   require "validators/tld"
+  require "validators/hostname"
   require "validators/disposable_hostnames"
   require "validators/validates_datetime"
   require "validators/validates_ip_address"

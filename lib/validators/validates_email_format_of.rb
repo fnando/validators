@@ -3,10 +3,12 @@ module ActiveModel
     class EmailValidator < EachValidator
       def validate_each(record, attribute, value)
         allow_disposable = options.fetch(:disposable, false)
+        check_tld = options.fetch(:tld, false)
 
         return if value.blank? && options[:allow_blank]
         return if value.nil? && options[:allow_nil]
 
+        validate_tld(record, attribute, value, options) if check_tld
         validate_email_format(record, attribute, value, options)
         validate_disposable_email(record, attribute, value, options) unless allow_disposable
       end
@@ -14,10 +16,24 @@ module ActiveModel
       def validate_email_format(record, attribute, value, options)
         if value.to_s !~ Validators::EMAIL_FORMAT
           record.errors.add(
-            attribute, :invalid_email,
-            :message => options[:message], :value => value
+            attribute,
+            :invalid_email,
+            message: options[:message],
+            value: value
           )
         end
+      end
+
+      def validate_tld(record, attribute, value, options)
+        host = value.to_s.split("@").last
+        return if Validators::TLD.host_with_valid_tld?(host)
+
+        record.errors.add(
+          attribute,
+          :invalid_hostname,
+          message: options[:message],
+          value: value
+        )
       end
 
       def validate_disposable_email(record, attribute, value, options)

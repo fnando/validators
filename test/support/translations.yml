@@ -15,6 +15,7 @@ en:
         invalid_cpf: "is not a valid CPF"
         invalid_cnpj: "is not a valid CNPJ"
         disposable_email: "is not allowed (high-bounce domain)"
+        invalid_hostname: "does not have a valid hostname"
 
   activemodel:
     <<: *activerecord

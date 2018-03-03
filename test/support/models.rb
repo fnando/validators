@@ -57,3 +57,14 @@ class ServerWithTLD
     @host = host
   end
 end
+
+class EmailWithTLD
+  include ActiveModel::Validations
+  attr_accessor :email
+
+  validates_email :email, tld: true
+
+  def initialize(email)
+    @email = email
+  end
+end
