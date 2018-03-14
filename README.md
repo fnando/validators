@@ -67,7 +67,7 @@ class Task < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
 
-  validates_ownership_of :category, :with => :user
+  validates_ownership_of :category, with: :user
 end
 
 user = User.find(1)
@@ -76,11 +76,11 @@ another_user = User.find(2)
 user_category = user.categories.first
 another_user_category = another_user.categories.first
 
-task = user.tasks.create(:category => user_category)
+task = user.tasks.create(category: user_category)
 task.valid?
 #=> true
 
-task = user.tasks.create(:category => another_user_category)
+task = user.tasks.create(category: another_user_category)
 task.valid?
 #=> false
 ```
@@ -90,8 +90,8 @@ task.valid?
 ```ruby
 class Server < ActiveRecord::Base
   validates_ip_address :address
-  validates_ip_address :address, :only => :v4
-  validates_ip_address :address, :only => :v6
+  validates_ip_address :address, only: :v4
+  validates_ip_address :address, only: :v6
 end
 ```
 
@@ -100,11 +100,11 @@ end
 ```ruby
 class Server < ActiveRecord::Base
   validates_datetime :starts_at
-  validates_datetime :ends_at, :after => :starts_at, :if => :starts_at?
-  validates_datetime :ends_at, :after => :now
-  validates_datetime :ends_at, :before => :today
+  validates_datetime :ends_at, after: :starts_at, if: :starts_at?
+  validates_datetime :ends_at, after: :now
+  validates_datetime :ends_at, before: :today
 
-  validates :starts_at, :datetime => true
+  validates :starts_at, datetime: true
 end
 ```
 

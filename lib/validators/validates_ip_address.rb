@@ -19,16 +19,20 @@ module ActiveModel
           scope = :invalid_ip_address
         end
 
-        unless valid
-          record.errors.add(
-            attribute, scope,
-            :message => options[:message], :value => value
-          )
-        end
+        return if valid
+
+        record.errors.add(
+          attribute, scope,
+          message: options[:message],
+          value: value
+        )
       end
 
       def check_validity!
-        raise ArgumentError, ":only accepts a symbol that can be either :v6 or :v4" if options.key?(:only) && ![:v4, :v6].include?(options[:only])
+        return unless options.key?(:only)
+        return if [:v4, :v6].include?(options[:only])
+
+        raise ArgumentError, ":only accepts a symbol that can be either :v6 or :v4"
       end
     end
 
@@ -36,8 +40,8 @@ module ActiveModel
       # Validates whether or not the specified URL is valid.
       #
       #   validates_ip_address :ip  #=> accepts both v4 and v6
-      #   validates_ip_address :ip, :only => :v4
-      #   validates_ip_address :ip, :only => :v6
+      #   validates_ip_address :ip, only: :v4
+      #   validates_ip_address :ip, only: :v6
       #
       def validates_ip_address(*attr_names)
         validates_with IpAddressValidator, _merge_attributes(attr_names)

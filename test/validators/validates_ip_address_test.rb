@@ -18,14 +18,14 @@ class ValidatesIpAddressTest < Minitest::Test
   end
 
   test "allows blank values" do
-    User.validates_ip_address :url, :allow_blank => true
+    User.validates_ip_address :url, allow_blank: true
     user.url = ""
 
     assert user.valid?
   end
 
   test "allows nil values" do
-    User.validates_ip_address :url, :allow_nil => true
+    User.validates_ip_address :url, allow_nil: true
     user.url = nil
 
     assert user.valid?

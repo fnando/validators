@@ -5,7 +5,7 @@ class ValidatesDatetimeAfterOptionTest < Minitest::Test
 
   test "rejects when date is set to before :after option" do
     future_date = 1.week.from_now
-    User.validates_datetime :registered_at, :after => future_date
+    User.validates_datetime :registered_at, after: future_date
     user.registered_at = Time.now
 
     refute user.valid?
@@ -13,14 +13,14 @@ class ValidatesDatetimeAfterOptionTest < Minitest::Test
   end
 
   test "accepts when date is set accordingly to the :after option" do
-    User.validates_datetime :registered_at, :after => 1.week.from_now
+    User.validates_datetime :registered_at, after: 1.week.from_now
     user.registered_at = 2.weeks.from_now
 
     assert user.valid?
   end
 
   test "validates using today as date" do
-    User.validates_datetime :registered_at, :after => :today
+    User.validates_datetime :registered_at, after: :today
 
     user.registered_at = Time.now
     refute user.valid?
@@ -36,7 +36,7 @@ class ValidatesDatetimeAfterOptionTest < Minitest::Test
   end
 
   test "validates using now as date" do
-    User.validates_datetime :registered_at, :after => :now
+    User.validates_datetime :registered_at, after: :now
 
     user.registered_at = Time.now
     refute user.valid?
@@ -53,7 +53,7 @@ class ValidatesDatetimeAfterOptionTest < Minitest::Test
 
   test "validates using method as date" do
     User.validates_datetime :starts_at
-    User.validates_datetime :ends_at, :after => :starts_at, :if => :starts_at?
+    User.validates_datetime :ends_at, after: :starts_at, if: :starts_at?
 
     user.starts_at = nil
     user.ends_at = Time.now

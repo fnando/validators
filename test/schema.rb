@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(version: 0) do
   create_table :users do |t|
     t.string :email, :corporate_email, :url
     t.datetime :registered_at, :starts_at, :ends_at

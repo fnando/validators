@@ -3,9 +3,9 @@ require "test_helper"
 class ValidatesOwnershipOfTest < Minitest::Test
   let(:user) { User.create! }
   let(:another_user) { User.create! }
-  let(:category) { Category.create!(:user => user) }
-  let(:another_category) { Category.create!(:user => another_user) }
-  let(:task) { Task.new(:user => user, :category => category) }
+  let(:category) { Category.create!(user: user) }
+  let(:another_category) { Category.create!(user: another_user) }
+  let(:task) { Task.new(user: user, category: category) }
 
   setup do
     user
@@ -14,7 +14,7 @@ class ValidatesOwnershipOfTest < Minitest::Test
     another_category
     task
 
-    Task.validates_ownership_of :category, :with => :user
+    Task.validates_ownership_of :category, with: :user
   end
 
   test "is valid when record is owned by the correct user" do
@@ -31,7 +31,7 @@ class ValidatesOwnershipOfTest < Minitest::Test
   end
 
   test "raises error when :with options is not a valid type" do
-    assert_raises(ArgumentError) { Task.validates_ownership_of :category, :with => user }
+    assert_raises(ArgumentError) { Task.validates_ownership_of :category, with: user }
   end
 
   test "is invalid when owner is not present" do

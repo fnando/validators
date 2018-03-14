@@ -10,8 +10,11 @@ module ActiveModel
         return if value.nil? && options[:allow_nil]
 
         unless date?(value)
-          record.errors.add(attribute, :invalid_date,
-            :message => options[:message], :value => value
+          record.errors.add(
+            attribute,
+            :invalid_date,
+            message: options[:message],
+            value: value
           )
         end
 
@@ -50,11 +53,15 @@ module ActiveModel
 
         date, value = date_for(record, value, options[:after])
 
-        record.errors.add(attribute, :invalid_date_after, {
-          :message => options[:after_message],
-          :value   => value,
-          :date    => (date?(date) ? I18n.l(date) : date.inspect)
-        }) unless value.present? && date.present? && (value && date && value > date)
+        return if value.present? && date.present? && (value && date && value > date)
+
+        record.errors.add(
+          attribute,
+          :invalid_date_after,
+          message: options[:after_message],
+          value: value,
+          date: (date?(date) ? I18n.l(date) : date.inspect)
+        )
       end
 
       def validate_before_option(record, attribute, value)
@@ -62,11 +69,15 @@ module ActiveModel
 
         date, value = date_for(record, value, options[:before])
 
-        record.errors.add(attribute, :invalid_date_before, {
-          :message => options[:before_message],
-          :value   => value,
-          :date    => I18n.l(date)
-        }) unless value.present? && date.present? && (value && date && value < date)
+        return if value.present? && date.present? && (value && date && value < date)
+
+        record.errors.add(
+          attribute,
+          :invalid_date_before,
+          message: options[:before_message],
+          value: value,
+          date: I18n.l(date)
+        )
       end
     end
 
@@ -79,12 +90,12 @@ module ActiveModel
       #
       # Other usages:
       #
-      #   validates_datetime :starts_at, :after => 2.years.ago
-      #   validates_datetime :starts_at, :before => 2.years.ago
-      #   validates_datetime :starts_at, :before => :today
-      #   validates_datetime :starts_at, :before => :now
-      #   validates_datetime :starts_at, :before => :ends_at
-      #   validates_datetime :ends_at, :after => :starts_at
+      #   validates_datetime :starts_at, after: 2.years.ago
+      #   validates_datetime :starts_at, before: 2.years.ago
+      #   validates_datetime :starts_at, before: :today
+      #   validates_datetime :starts_at, before: :now
+      #   validates_datetime :starts_at, before: :ends_at
+      #   validates_datetime :ends_at, after: :starts_at
       #
       def validates_datetime(*attr_names)
         validates_with DatetimeValidator, _merge_attributes(attr_names)

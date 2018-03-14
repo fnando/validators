@@ -1,6 +1,8 @@
 module ActiveModel
   module Validations
     class EmailValidator < EachValidator
+      AT_SIGN = "@".freeze
+
       def validate_each(record, attribute, value)
         allow_disposable = options.fetch(:disposable, false)
         check_tld = options.fetch(:tld, false)
@@ -25,7 +27,7 @@ module ActiveModel
       end
 
       def validate_tld(record, attribute, value, options)
-        host = value.to_s.split("@").last
+        host = value.to_s.split(AT_SIGN).last
         return if Validators::TLD.host_with_valid_tld?(host)
 
         record.errors.add(
@@ -37,12 +39,15 @@ module ActiveModel
       end
 
       def validate_disposable_email(record, attribute, value, options)
-        hostname = value.to_s.split("@").last.to_s.downcase
+        hostname = value.to_s.split(AT_SIGN).last.to_s.downcase
+
+        return unless Validators::DisposableHostnames.all.include?(hostname)
 
         record.errors.add(
-          attribute, :disposable_email,
-          :value => value
-        ) if Validators::DisposableHostnames.all.include?(hostname)
+          attribute,
+          :disposable_email,
+          value: value
+        )
       end
     end
 

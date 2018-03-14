@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'open-uri'
-require 'json'
+require "open-uri"
+require "json"
 
-tlds = open('https://data.iana.org/TLD/tlds-alpha-by-domain.txt').read.lines
+tlds = open("https://data.iana.org/TLD/tlds-alpha-by-domain.txt").read.lines
 tlds.shift # remove update notice
 
 tlds.map!(&:downcase)
@@ -11,6 +11,6 @@ tlds.map!(&:strip)
 tlds.sort!
 tlds.uniq!
 
-File.open('./data/tld.json', 'w') do |file|
+File.open("./data/tld.json", "w") do |file|
   file << JSON.pretty_generate(tlds)
 end

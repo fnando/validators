@@ -7,7 +7,7 @@ class ValidatesDatetimeBeforeOptionTest < Minitest::Test
     week_ago = 1.week.ago
     now = Time.now
 
-    User.validates_datetime :registered_at, :before => week_ago
+    User.validates_datetime :registered_at, before: week_ago
     user.registered_at = now
 
     refute user.valid?
@@ -15,7 +15,7 @@ class ValidatesDatetimeBeforeOptionTest < Minitest::Test
   end
 
   test "accepts when date is set accordingly to the :before option" do
-    User.validates_datetime :registered_at, :before => 1.week.ago
+    User.validates_datetime :registered_at, before: 1.week.ago
     user.registered_at = 2.weeks.ago
 
     assert user.valid?

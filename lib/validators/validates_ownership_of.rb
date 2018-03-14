@@ -5,12 +5,14 @@ module ActiveModel
         owner = record.send(options[:with])
         actual_owner = value ? value.send(options[:with]) : nil
 
-        if value && owner != actual_owner
-          record.errors.add(
-            attribute, :invalid_owner,
-            :message => options[:message]
-          )
-        end
+        return unless value
+        return if owner == actual_owner
+
+        record.errors.add(
+          attribute,
+          :invalid_owner,
+          message: options[:message]
+        )
       end
 
       def check_validity!
@@ -26,7 +28,7 @@ module ActiveModel
       #     belongs_to :user
       #     belongs_to :category
       #
-      #     validates_ownership_of :category, :with => :user
+      #     validates_ownership_of :category, with: :user
       #   end
       #
       #   user = User.find(1)
@@ -35,11 +37,11 @@ module ActiveModel
       #   user_category = user.categories.first
       #   another_user_category = another_user.categories.first
       #
-      #   task = user.tasks.create(:category => user_category)
+      #   task = user.tasks.create(category: user_category)
       #   task.valid?
       #   #=> true
       #
-      #   task = user.tasks.create(:category => another_user_category)
+      #   task = user.tasks.create(category: another_user_category)
       #   task.valid?
       #   #=> false
       #

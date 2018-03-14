@@ -19,7 +19,7 @@ class DsaTest < Minitest::Test
   end
 
   test "rejects rsa key" do
-    record = model.new(key: SSHKey.generate(type: 'rsa').private_key)
+    record = model.new(key: SSHKey.generate(type: "rsa").private_key)
     record.valid?
 
     refute record.errors[:key].empty?
@@ -28,7 +28,7 @@ class DsaTest < Minitest::Test
   test "sets translated error message" do
     I18n.locale = "pt-BR"
 
-    record = model.new(key: SSHKey.generate(type: 'rsa').private_key)
+    record = model.new(key: SSHKey.generate(type: "rsa").private_key)
     record.valid?
 
     assert_includes record.errors[:key], "precisa ser uma chave DSA"

@@ -1,16 +1,16 @@
 #!/usr/bin/env ruby
 
-require 'open-uri'
-require 'json'
+require "open-uri"
+require "json"
 
-domains = JSON.load(open('https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json').read)
-domains += JSON.load(open('https://raw.githubusercontent.com/andreis/disposable-email-domains/master/domains.json').read)
-domains += JSON.load(open('https://raw.githubusercontent.com/FGRibreau/mailchecker/master/list.json').read).flatten
+domains = JSON.load(open("https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json").read)
+domains += JSON.load(open("https://raw.githubusercontent.com/andreis/disposable-email-domains/master/domains.json").read)
+domains += JSON.load(open("https://raw.githubusercontent.com/FGRibreau/mailchecker/master/list.json").read).flatten
 
 domains.map!(&:downcase)
 domains.uniq!
 domains.sort!
 
-File.open('./data/disposable.json', 'w') do |file|
+File.open("./data/disposable.json", "w") do |file|
   file << JSON.pretty_generate(domains)
 end

@@ -5,7 +5,7 @@ class ValidatesDatetimeDefaultsTest < Minitest::Test
 
   setup do
     User.validates_datetime :registered_at
-    User.validates :birthday, :datetime => true
+    User.validates :birthday, datetime: true
   end
 
   VALID_DATES.each do |date|

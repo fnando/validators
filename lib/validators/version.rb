@@ -3,6 +3,6 @@ module Validators
     MAJOR = 2
     MINOR = 7
     PATCH = 0
-    STRING = "#{MAJOR}.#{MINOR}.#{PATCH}"
+    STRING = "#{MAJOR}.#{MINOR}.#{PATCH}".freeze
   end
 end

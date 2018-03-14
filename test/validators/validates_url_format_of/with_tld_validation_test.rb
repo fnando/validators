@@ -2,7 +2,7 @@ require "test_helper"
 
 class ValidatesurlFormatUrlWithTldValidationTest < Minitest::Test
   test "rejects invalid TLD" do
-    user = UserWithTLD.new('http://example.xy')
+    user = UserWithTLD.new("http://example.xy")
     refute user.valid?
   end
 

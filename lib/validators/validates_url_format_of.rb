@@ -6,9 +6,11 @@ module ActiveModel
         return if value.nil? && options[:allow_nil]
         return if url?(value.to_s)
 
-        record.errors.add(attribute, :invalid_url,
-          :message => options[:message],
-          :value => value
+        record.errors.add(
+          attribute,
+          :invalid_url,
+          message: options[:message],
+          value: value
         )
       end
 

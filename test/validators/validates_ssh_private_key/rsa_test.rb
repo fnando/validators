@@ -7,7 +7,7 @@ class RsaTest < Minitest::Test
     end
 
     include ActiveModel::Model
-    validates_ssh_private_key :key, type: 'rsa'
+    validates_ssh_private_key :key, type: "rsa"
     attr_accessor :key
   } }
 

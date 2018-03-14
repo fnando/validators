@@ -28,7 +28,7 @@ class UserWithTLD
   validates_url_format_of :url, tld: true
 
   def self.name
-    'User'
+    "User"
   end
 
   def initialize(url)

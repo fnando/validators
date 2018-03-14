@@ -18,7 +18,7 @@ module Validators
     end
 
     def self.valid_label?(label)
-      !label.start_with?('-') &&
+      !label.start_with?("-") &&
       !label.match(/\A\d+\z/) &&
       label.match(/\A[a-z0-9-]{1,63}\z/i)
     end
