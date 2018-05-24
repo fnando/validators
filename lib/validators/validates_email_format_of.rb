@@ -16,14 +16,15 @@ module ActiveModel
       end
 
       def validate_email_format(record, attribute, value, options)
-        if value.to_s !~ Validators::EMAIL_FORMAT
-          record.errors.add(
-            attribute,
-            :invalid_email,
-            message: options[:message],
-            value: value
-          )
-        end
+        return if value.to_s =~ Validators::EMAIL_FORMAT
+        return if value.to_s =~ Validators::MICROSOFT_EMAIL_FORMAT
+
+        record.errors.add(
+          attribute,
+          :invalid_email,
+          message: options[:message],
+          value: value
+        )
       end
 
       def validate_tld(record, attribute, value, options)
