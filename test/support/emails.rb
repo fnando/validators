@@ -21,7 +21,9 @@ INVALID_EMAILS = [
   # corrected in http://www.rfc-editor.org/errata_search.php?rfc=3696
   'Fred\ Bloggs_@example.com',
   'Abc\@def+@example.com',
-  'Joe.\\Blow@example.com'
+  'Joe.\\Blow@example.com',
+  'invalid.@hotmail.com',
+  'invalid.@outlook.com',
 ]
 
 VALID_EMAILS = [
@@ -37,4 +39,12 @@ VALID_EMAILS = [
   "valid123.456@somedomain.org",
   "valid@somedomain.mobi",
   "valid@somedomain.info",
+  "valid-@hotmail.com",
+  "valid-@outlook.com",
+  "valid_@hotmail.com",
+  "valid_@outlook.com",
+  "valid_-_-_-_-_-_@hotmail.com",
+  "valid_-_-_-_-_-_@outlook.com",
+  "sub_total-5+8@hotmail.com",
+  "sub_total-5+8@outlook.com",
 ]
