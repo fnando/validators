@@ -47,4 +47,8 @@ VALID_EMAILS = [
   "valid_-_-_-_-_-_@outlook.com",
   "sub_total-5+8@hotmail.com",
   "sub_total-5+8@outlook.com",
+  "valid__email@somedomain.com",
+  "valid-_-email@somedomain.com",
+  "validemail_@somedomain.com",
+  "valid-email-@somedomain.com",
 ]
