@@ -124,6 +124,14 @@ class User < ActiveRecord::Base
 end
 ```
 
+### validates_cpf_or_cnpj_format_of
+
+```ruby
+class User < ActiveRecord::Base
+  validates_cpf_or_cnpj_format_of :document
+end
+```
+
 ### validates_hostname
 
 Rules:

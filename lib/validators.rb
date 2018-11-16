@@ -13,6 +13,7 @@ module Validators
   require "validators/validates_ownership_of"
   require "validators/validates_cpf_format_of"
   require "validators/validates_cnpj_format_of"
+  require "validators/validates_cpf_or_cnpj_format_of"
   require "validators/validates_ssh_private_key"
   require "validators/validates_ssh_public_key"
   require "validators/validates_hostname_format_of"
