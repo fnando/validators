@@ -1,7 +1,7 @@
 language: ruby
 cache: bundler
 sudo: false
-script: bundle exec rubocop && bundle exec rake
+script: bundle exec rake
 before_script:
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
@@ -13,6 +13,7 @@ notifications:
 rvm:
 - 2.6.1
 - 2.5.3
+- 2.4.5
 env:
   global:
     secure: P3k49Psmw9C7Z0FL0A93H/aD4Xsu+VEccD51FmP2Cw0oeGHpReafU07izyYkQ/Y8jmxOiPiLS29b39PNuGa0DF1MnbW9Tmr9eSrct3v4B0WTj+SA8ZcBEKwS/SQMgJnfEJq6jeWS9gpRtCrDHFGGFHJvtVYGHragwfY+evlN2MI=

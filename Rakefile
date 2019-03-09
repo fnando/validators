@@ -3,6 +3,12 @@
 require "bundler/setup"
 require "bundler/gem_tasks"
 require "rake/testtask"
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new(:rubocop) do |t|
+  t.options << "--config"
+  t.options << File.expand_path(".rubocop.yml", __dir__)
+end
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
@@ -10,4 +16,4 @@ Rake::TestTask.new(:test) do |t|
   t.warning = false
 end
 
-task :default => :test
+task :default => [:test, :rubocop]

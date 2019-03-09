@@ -7,6 +7,7 @@ AllCops:
     - db/seeds.rb
     - config/environments/**/*.rb
     - bin/**/*
+    - vendor/**/*
 
 Style/Documentation:
   Enabled: false
@@ -27,9 +28,6 @@ Layout/FirstArrayElementLineBreak:
   Enabled: true
 
 Layout/FirstHashElementLineBreak:
-  Enabled: true
-
-Style/SymbolArray:
   Enabled: true
 
 Style/PercentLiteralDelimiters:
@@ -78,6 +76,11 @@ Style/AsciiComments:
   Enabled: false
 
 Style/HashSyntax:
+  Exclude:
+    - Rakefile
+    - "**/*.rake"
+
+Style/SymbolArray:
   Exclude:
     - Rakefile
     - "**/*.rake"
