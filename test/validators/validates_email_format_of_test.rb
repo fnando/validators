@@ -82,4 +82,16 @@ class ValidatesEmailFormatOfTest < Minitest::Test
     refute user.valid?
     assert_includes user.errors[:email], "does not have a valid hostname"
   end
+
+  test "rejects nil emails" do
+    user = Buyer.new(email: nil)
+
+    refute user.valid?
+  end
+
+  test "rejects nil emails when validating tld" do
+    user = EmailWithTLD.new(email: nil)
+
+    refute user.valid?
+  end
 end
