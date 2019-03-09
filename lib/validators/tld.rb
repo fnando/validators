@@ -9,7 +9,9 @@ module Validators
     end
 
     def self.host_with_valid_tld?(host)
-      return false if host.to_s.split(".").size == 1
+      host = host.to_s
+
+      return false if host.split(".").size == 1
 
       valid?(host[/\.([^.]+)$/, 1].to_s.downcase)
     end
