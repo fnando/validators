@@ -2,15 +2,17 @@ language: ruby
 cache: bundler
 sudo: false
 script: bundle exec rake
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
+after_script:
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 notifications:
   email: false
 rvm:
-  - '2.4.1'
-  - '2.3.0'
-  - '2.2.7'
-addons:
-  code_climate:
-    repo_token:
-      secure: CX0AIDehELC1kcnvfeLLnhKpX68OCh7OhyRuFhJbMLt9NEu5FjLJgR3IF4V/e+BeyUIEi+xidi/Xa9j+06BbCGtjGmmgTde/Zp9qpVHOwsiGXYn4zkZZmudUQXdF/S3CrBkwauXC8HTUS1OIeGylK5fhW/fz+PpwU7ocQahrhvc=
-after_success:
-- bundle exec codeclimate-test-reporter
+- 2.6.1
+- 2.5.3
+env:
+  global:
+    secure: P3k49Psmw9C7Z0FL0A93H/aD4Xsu+VEccD51FmP2Cw0oeGHpReafU07izyYkQ/Y8jmxOiPiLS29b39PNuGa0DF1MnbW9Tmr9eSrct3v4B0WTj+SA8ZcBEKwS/SQMgJnfEJq6jeWS9gpRtCrDHFGGFHJvtVYGHragwfY+evlN2MI=

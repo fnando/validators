@@ -10,8 +10,8 @@ require "minitest/utils"
 require "minitest/autorun"
 
 Time.zone = "America/Sao_Paulo"
-TLDs = Validators::TLD.all.sample(50)
-DISPOSABLE_EMAILS = Validators::DisposableHostnames.all.sample(50)
+TLDs = Validators::TLD.all.sample(10)
+DISPOSABLE_EMAILS = Validators::DisposableHostnames.all.sample(10)
 
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f }
 
