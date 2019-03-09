@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class ValidatesDatetimeAfterOptionTest < Minitest::Test
@@ -63,9 +65,33 @@ class ValidatesDatetimeAfterOptionTest < Minitest::Test
 
     user.starts_at = Time.parse("Apr 26 2010")
     user.ends_at = Time.parse("Apr 25 2010")
+    formatted_date = I18n.l(Time.parse("Apr 26 2010"))
 
     refute user.valid?
-    assert_includes user.errors[:ends_at], "needs to be after #{I18n.l(Time.parse("Apr 26 2010"))}"
+    assert_includes user.errors[:ends_at], "needs to be after #{formatted_date}"
+
+    user.starts_at = Time.now
+    user.ends_at = 1.hour.from_now
+
+    assert user.valid?
+  end
+
+  test "validates using proc as date" do
+    User.validates_datetime :starts_at
+    User.validates_datetime :ends_at, after: ->(record) { record.starts_at }, if: :starts_at?
+
+    user.starts_at = nil
+    user.ends_at = Time.now
+
+    refute user.valid?
+    assert user.errors[:ends_at].empty?
+
+    user.starts_at = Time.parse("Apr 26 2010")
+    user.ends_at = Time.parse("Apr 25 2010")
+    formatted_date = I18n.l(Time.parse("Apr 26 2010"))
+
+    refute user.valid?
+    assert_includes user.errors[:ends_at], "needs to be after #{formatted_date}"
 
     user.starts_at = Time.now
     user.ends_at = 1.hour.from_now

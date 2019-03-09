@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveRecord::Schema.define(version: 0) do
   create_table :users do |t|
     t.string :email, :corporate_email, :url

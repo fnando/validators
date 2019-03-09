@@ -1,5 +1,20 @@
+# frozen_string_literal: true
+
 require "simplecov"
-SimpleCov.start
+require "simplecov-console"
+
+SimpleCov.minimum_coverage 100
+SimpleCov.minimum_coverage_by_file 100
+SimpleCov.refuse_coverage_drop
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::Console,
+  SimpleCov::Formatter::HTMLFormatter
+])
+
+SimpleCov.start do
+  add_filter "test/support"
+end
 
 require "bundler/setup"
 require "active_record"
@@ -13,13 +28,13 @@ Time.zone = "America/Sao_Paulo"
 TLDs = Validators::TLD.all.sample(10)
 DISPOSABLE_EMAILS = Validators::DisposableHostnames.all.sample(10)
 
-Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f }
+Dir[File.join(__dir__, "support/**/*.rb")].each {|f| require f }
 
 ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 load "schema.rb"
 
 I18n.enforce_available_locales = false
-I18n.load_path << File.dirname(__FILE__) + "/support/translations.yml"
+I18n.load_path << File.join(__dir__, "support/translations.yml")
 
 module Minitest
   class Test
@@ -35,7 +50,7 @@ module Minitest
         Object.class_eval { remove_const model.name if const_defined?(model.name) }
       end
 
-      load File.dirname(__FILE__) + "/support/models.rb"
+      load File.join(__dir__, "support/models.rb")
     end
   end
 end

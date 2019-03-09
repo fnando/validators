@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 module ActiveModel
   module Validations
     class OwnershipValidator < EachValidator
+      WITH_OPTIONS = %w[String Symbol].freeze
+
       def validate_each(record, attribute, value)
         owner = record.send(options[:with])
         actual_owner = value ? value.send(options[:with]) : nil
@@ -17,7 +21,7 @@ module ActiveModel
 
       def check_validity!
         raise ArgumentError, ":with is required" unless options.key?(:with)
-        raise ArgumentError, ":with option must be a string or a symbol" unless ["String", "Symbol"].include?(options[:with].class.name)
+        raise ArgumentError, ":with option must be a string or a symbol" unless WITH_OPTIONS.include?(options[:with].class.name)
       end
     end
 

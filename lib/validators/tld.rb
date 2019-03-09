@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 module Validators
   class TLD
-    FILE_PATH = File.expand_path("../../../data/tld.json", __FILE__)
+    FILE_PATH = File.expand_path("../../data/tld.json", __dir__)
 
     def self.all
-      @tld ||= JSON.load(File.read(FILE_PATH))
+      @all ||= JSON.parse(File.read(FILE_PATH))
     end
 
     def self.host_with_valid_tld?(host)
       return false if host.split(".").size == 1
+
       valid? host[/\.([^.]+)$/, 1].to_s.downcase
     end
 

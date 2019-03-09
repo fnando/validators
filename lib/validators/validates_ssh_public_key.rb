@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveModel
   module Validations
     class SshPublicKeyValidator < EachValidator
@@ -26,7 +28,7 @@ module ActiveModel
         require "sshkey"
         validates_with SshPublicKeyValidator, _merge_attributes(attr_names)
       rescue LoadError
-        fail "sshkey is not part of the bundle. Add it to Gemfile."
+        raise "sshkey is not part of the bundle. Add it to Gemfile."
       end
     end
   end

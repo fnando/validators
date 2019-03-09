@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Validators
   module Ip
-    extend self
-
     # Extracted from Ruby 1.8.7
     def v4?(addr)
       matches = addr.match(/\A(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\Z/)
-      matches && matches.captures.all? {|i| i.to_i < 256}
+      matches&.captures&.all? {|i| i.to_i < 256 }
     end
 
     # Extracted from Ruby 1.8.7
@@ -25,5 +25,9 @@ module Validators
     def valid?(addr)
       v4?(addr) || v6?(addr)
     end
+
+    module_function :v4?
+    module_function :v6?
+    module_function :valid?
   end
 end

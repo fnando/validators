@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 VALID_IPV4 = [
   "192.168.1.1",
   "64.233.163.104",
   "127.0.0.1",
   "0.0.0.0"
-]
+].freeze
 
 VALID_IPV6 = [
   "FE80:0000:0000:0000:0202:B3FF:FE1E:8329",
@@ -17,4 +19,4 @@ VALID_IPV6 = [
   "3ffe:1900:4545:3:200:f8ff:fe21:67cf",
   "fe80:0:0:0:200:f8ff:fe21:67cf",
   "fe80::200:f8ff:fe21:67cf"
-]
+].freeze

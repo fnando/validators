@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class BitsTest < Minitest::Test
-  let(:model) { Class.new {
-    def self.name
-      "User"
-    end
+  let(:model) do
+    Class.new do
+      def self.name
+        "User"
+      end
 
-    include ActiveModel::Model
-    validates_ssh_private_key :key, bits: 2048
-    attr_accessor :key
-  } }
+      include ActiveModel::Model
+      validates_ssh_private_key :key, bits: 2048
+      attr_accessor :key
+    end
+  end
 
   test "accepts bits equals to required" do
     record = model.new(key: SSHKey.generate(bits: 2048).private_key)

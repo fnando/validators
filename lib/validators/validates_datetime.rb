@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module ActiveModel
   module Validations
     class DatetimeValidator < EachValidator
       def date?(value)
-        value.kind_of?(Date) || value.kind_of?(Time)
+        value.is_a?(Date) || value.is_a?(Time)
       end
 
       def validate_each(record, attribute, value)
@@ -18,37 +20,36 @@ module ActiveModel
           )
         end
 
-        if date?(value)
-          validate_after_option(record, attribute, value)
-          validate_before_option(record, attribute, value)
-        end
+        return unless date?(value)
+
+        validate_after_option(record, attribute, value)
+        validate_before_option(record, attribute, value)
       end
 
-      private
-      def date_for(record, value, option)
+      private def date_for(record, value, option)
         date = case option
-        when :today
-          Date.today
-        when :now
-          Time.now
-        when Time, Date, DateTime, ActiveSupport::TimeWithZone
-          option
-        when Proc
-          option.call(record)
-        else
-          record.__send__(option) if record.respond_to?(option)
-        end
+               when :today
+                 Date.today
+               when :now
+                 Time.now
+               when Time, Date, DateTime, ActiveSupport::TimeWithZone
+                 option
+               when Proc
+                 option.call(record)
+               else
+                 record.__send__(option) if record.respond_to?(option)
+               end
 
-        if date.kind_of?(Time)
+        if date.is_a?(Time)
           value = value.to_time
-        elsif date.kind_of?(Date)
+        elsif date.is_a?(Date)
           value = value.to_date
         end
 
         [date, value]
       end
 
-      def validate_after_option(record, attribute, value)
+      private def validate_after_option(record, attribute, value)
         return unless options[:after]
 
         date, value = date_for(record, value, options[:after])
@@ -64,7 +65,7 @@ module ActiveModel
         )
       end
 
-      def validate_before_option(record, attribute, value)
+      private def validate_before_option(record, attribute, value)
         return unless options[:before]
 
         date, value = date_for(record, value, options[:before])

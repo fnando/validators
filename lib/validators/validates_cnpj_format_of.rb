@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveModel
   module Validations
     class CnpjValidator < EachValidator
@@ -6,7 +8,9 @@ module ActiveModel
         return if value.nil? && options[:allow_nil]
         return if CNPJ.valid?(value)
 
-        record.errors.add(attribute, :invalid_cnpj,
+        record.errors.add(
+          attribute,
+          :invalid_cnpj,
           message: options[:message],
           value: value
         )
@@ -24,7 +28,7 @@ module ActiveModel
         require "cnpj"
         validates_with CnpjValidator, _merge_attributes(attr_names)
       rescue LoadError
-        fail "cpf_cnpj is not part of the bundle. Add it to Gemfile."
+        raise "cpf_cnpj is not part of the bundle. Add it to Gemfile."
       end
 
       alias_method :validates_cnpj, :validates_cnpj_format_of

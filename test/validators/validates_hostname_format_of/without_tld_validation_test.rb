@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class WithoutTldValidationTest < Minitest::Test
@@ -22,6 +24,11 @@ class WithoutTldValidationTest < Minitest::Test
 
   test "rejects blank hostname" do
     server = ServerWithoutTLD.new("")
+    refute server.valid?
+  end
+
+  test "rejects invalid uris" do
+    server = ServerWithoutTLD.new("\\DERP!")
     refute server.valid?
   end
 end

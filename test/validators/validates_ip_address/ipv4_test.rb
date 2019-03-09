@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Ipv4Test < Minitest::Test
@@ -16,5 +18,11 @@ class Ipv4Test < Minitest::Test
 
     refute user.valid?
     assert_includes user.errors[:url], "is not a valid IPv4 address"
+  end
+
+  test "rejects invalid types" do
+    assert_raises ArgumentError, ":only accepts a symbol that can be either :v6 or :v4" do
+      User.validates_ip_address :url, only: :invalid
+    end
   end
 end

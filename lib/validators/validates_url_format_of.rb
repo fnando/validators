@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveModel
   module Validations
     class UrlValidator < EachValidator
@@ -16,18 +18,22 @@ module ActiveModel
 
       def url?(url)
         uri = URI(url)
-        regex = options[:tld] ? Validators::URL_FORMAT_WITHOUT_TLD_VALIDATION :
-                                Validators::URL_FORMAT
+        regex = if options[:tld]
+                  Validators::URL_FORMAT_WITHOUT_TLD_VALIDATION
+                else
+                  Validators::URL_FORMAT
+                end
 
-        uri.kind_of?(URI::HTTP) &&
-        url.match(regex) &&
-        valid_tld?(uri.host)
+        uri.is_a?(URI::HTTP) &&
+          url.match(regex) &&
+          valid_tld?(uri.host)
       rescue URI::InvalidURIError
         false
       end
 
       def valid_tld?(host)
         return true unless options[:tld]
+
         Validators::TLD.host_with_valid_tld?(host)
       end
     end

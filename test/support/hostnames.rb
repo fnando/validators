@@ -1,4 +1,6 @@
-VALID_HOSTNAMES = %W[
+# frozen_string_literal: true
+
+VALID_HOSTNAMES = %w[
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com
   a-b.com
@@ -7,12 +9,12 @@ VALID_HOSTNAMES = %W[
   123a.com
   ABC123.com
   123ABC.com
-]
+].freeze
 
 INVALID_HOSTNAMES = %W[
   192.168.42.42
   a..com
-  #{'a'*64}.com
+  #{'a' * 64}.com
   http://example.com
   https://example.com
   example.com?a=1
@@ -23,4 +25,4 @@ INVALID_HOSTNAMES = %W[
   example.1234.com
   example_domain.com
   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com
-]
+].freeze

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveModel
   module Validations
     class SshPrivateKeyValidator < EachValidator
@@ -17,9 +19,7 @@ module ActiveModel
         )
       end
 
-      private
-
-      def validate_type(record, attribute, sshkey)
+      private def validate_type(record, attribute, sshkey)
         return unless options[:type]
 
         valid = [options[:type]].flatten.compact.map(&:to_s).include?(sshkey.type)
@@ -34,7 +34,7 @@ module ActiveModel
         )
       end
 
-      def validate_bits(record, attribute, sshkey)
+      private def validate_bits(record, attribute, sshkey)
         return unless options[:bits]
         return if sshkey.bits >= options[:bits].to_i
 
@@ -59,7 +59,7 @@ module ActiveModel
         require "sshkey"
         validates_with SshPrivateKeyValidator, _merge_attributes(attr_names)
       rescue LoadError
-        fail "sshkey is not part of the bundle. Add it to Gemfile."
+        raise "sshkey is not part of the bundle. Add it to Gemfile."
       end
     end
   end

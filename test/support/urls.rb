@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 VALID_URLS = [
   "http://example.com",
   "http://example.com/",
@@ -17,14 +18,14 @@ VALID_URLS = [
   "http://1.2.3.4:80",
   "HttP://example.com",
   "https://example.com",
-  # "http://räksmörgås.nu",  # IDN
-  "http://xn--rksmrgs-5wao1o.nu",  # Punycode
+  # "http://räksmörgås.nu", # IDN
+  "http://xn--rksmrgs-5wao1o.nu", # Punycode
   "http://www.xn--rksmrgs-5wao1o.nu",
   "http://foo.bar.xn--rksmrgs-5wao1o.nu",
-  "http://example.xy",  # Only valid TLD
-  "http://example.com.",  # Explicit TLD root period
+  "http://example.xy", # Only valid TLD
+  "http://example.com.", # Explicit TLD root period
   "http://example.com./foo"
-]
+].freeze
 
 INVALID_URLS = [
   "url",
@@ -40,4 +41,4 @@ INVALID_URLS = [
   "http://example",
   "http://example.c",
   "http://example.toolongtld"
-]
+].freeze

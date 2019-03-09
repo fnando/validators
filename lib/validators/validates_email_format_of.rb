@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module ActiveModel
   module Validations
     class EmailValidator < EachValidator
-      AT_SIGN = "@".freeze
+      AT_SIGN = "@"
 
       def validate_each(record, attribute, value)
         allow_disposable = options.fetch(:disposable, false)
@@ -39,7 +41,7 @@ module ActiveModel
         )
       end
 
-      def validate_disposable_email(record, attribute, value, options)
+      def validate_disposable_email(record, attribute, value, _options)
         hostname = value.to_s.split(AT_SIGN).last.to_s.downcase
 
         return unless Validators::DisposableHostnames.all.include?(hostname)

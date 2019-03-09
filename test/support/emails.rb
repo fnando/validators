@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 INVALID_EMAILS = [
   "invalid@example-com",
   # period can not start local part
@@ -19,12 +21,12 @@ INVALID_EMAILS = [
   "invalid@example.",
   # from http://tools.ietf.org/html/rfc3696, page 5
   # corrected in http://www.rfc-editor.org/errata_search.php?rfc=3696
-  'Fred\ Bloggs_@example.com',
+  "Fred\ Bloggs_@example.com",
   'Abc\@def+@example.com',
   'Joe.\\Blow@example.com',
-  'invalid.@hotmail.com',
-  'invalid.@outlook.com',
-]
+  "invalid.@hotmail.com",
+  "invalid.@outlook.com"
+].freeze
 
 VALID_EMAILS = [
   "valid@somedomain.com",
@@ -46,5 +48,5 @@ VALID_EMAILS = [
   "valid_-_-_-_-_-_@hotmail.com",
   "valid_-_-_-_-_-_@outlook.com",
   "sub_total-5+8@hotmail.com",
-  "sub_total-5+8@outlook.com",
-]
+  "sub_total-5+8@outlook.com"
+].freeze

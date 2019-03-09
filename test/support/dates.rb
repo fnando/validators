@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 VALID_DATES = [
   "2010-04-26",
   "2010-04-26 23:59:00",
@@ -9,11 +11,11 @@ VALID_DATES = [
   Date.today,
   DateTime.now,
   Time.zone.now
-]
+].freeze
 
 INVALID_DATES = [
   "invalid",
   nil,
   "",
   "4/26"
-]
+].freeze

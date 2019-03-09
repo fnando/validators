@@ -1,15 +1,30 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class ValidatesSsshPublicKeyCommonTest < Minitest::Test
-  let(:model) { Class.new {
-    def self.name
-      "User"
-    end
+  let(:model) do
+    Class.new do
+      def self.name
+        "User"
+      end
 
-    include ActiveModel::Model
-    validates_ssh_public_key :key
-    attr_accessor :key
-  } }
+      include ActiveModel::Model
+      validates_ssh_public_key :key
+      attr_accessor :key
+    end
+  end
+
+  test "fails when gem is not available" do
+    assert_raises do
+      Class.new do
+        expects(:require).with("sshkey").raises(LoadError)
+
+        include ActiveModel::Model
+        validates_ssh_public_key :key
+      end
+    end
+  end
 
   test "requires valid key" do
     record = model.new(key: nil)
