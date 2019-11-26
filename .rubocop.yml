@@ -19,3 +19,12 @@ Metrics/PerceivedComplexity:
 
 Style/Alias:
   Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
