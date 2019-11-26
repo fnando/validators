@@ -3,7 +3,6 @@
 require_relative "lib/validators/version"
 
 Gem::Specification.new do |s|
-  s.required_ruby_version = ">= 2.4"
   s.name        = "validators"
   s.version     = Validators::Version::STRING
   s.platform    = Gem::Platform::RUBY
@@ -26,8 +25,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry-meta"
   s.add_development_dependency "rake"
   s.add_development_dependency "rubocop"
+  s.add_development_dependency "rubocop-fnando"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "simplecov-console"
-  s.add_development_dependency "sqlite3", "~> 1.3.6"
+  s.add_development_dependency "sqlite3"
   s.add_development_dependency "sshkey"
 end
