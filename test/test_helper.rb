@@ -43,11 +43,13 @@ module Minitest
       Time.zone = "America/Sao_Paulo"
 
       ActiveRecord::Base.descendants.each do |model|
-        next if %w[ActiveRecord::InternalMetadata ActiveRecord::SchemaMigration].include?(model.name)
+        next if %w[ActiveRecord::InternalMetadata ActiveRecord::SchemaMigration primary::SchemaMigration].include?(model.name)
 
         model.delete_all
 
-        Object.class_eval { remove_const model.name if const_defined?(model.name) }
+        Object.class_eval do
+          remove_const model.name if const_defined?(model.name)
+        end
       end
 
       load File.join(__dir__, "support/models.rb")
