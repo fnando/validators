@@ -44,7 +44,9 @@ module ActiveModel
       def validate_disposable_email(record, attribute, value, _options)
         hostname = value.to_s.split(AT_SIGN).last.to_s.downcase
 
-        return unless Validators::DisposableHostnames.all.include?(hostname)
+        return if Validators::DisposableHostnames.all.none? do |disposable_hostname|
+          hostname == disposable_hostname || hostname.end_with?(".#{disposable_hostname}")
+        end
 
         record.errors.add(
           attribute,
