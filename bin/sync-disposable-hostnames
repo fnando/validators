@@ -4,9 +4,27 @@
 require "open-uri"
 require "json"
 
-domains = JSON.parse(open("https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json").read)
-domains += JSON.parse(open("https://raw.githubusercontent.com/andreis/disposable-email-domains/master/domains.json").read)
-domains += open("https://raw.githubusercontent.com/FGRibreau/mailchecker/master/list.txt").read.lines.map(&:chomp)
+urls = %w[
+  https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json
+  https://raw.githubusercontent.com/andreis/disposable-email-domains/master/domains.json
+  https://raw.githubusercontent.com/FGRibreau/mailchecker/master/list.txt
+  https://raw.githubusercontent.com/willwhite/freemail/master/data/disposable.txt
+]
+
+domains = urls.each_with_object([]) do |url, buffer|
+  ext = File.extname(url)
+
+  result = case ext
+           when ".json"
+             JSON.parse(URI.open(url).read)
+           when ".txt"
+             URI.open(url).read.lines.map(&:chomp)
+           else
+             raise "Unknown extension"
+           end
+
+  buffer.push(*result)
+end
 
 domains.map!(&:downcase)
 domains.uniq!

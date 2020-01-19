@@ -4,7 +4,7 @@
 require "open-uri"
 require "json"
 
-tlds = open("https://data.iana.org/TLD/tlds-alpha-by-domain.txt").read.lines
+tlds = URI.open("https://data.iana.org/TLD/tlds-alpha-by-domain.txt").read.lines
 tlds.shift # remove update notice
 
 tlds.map!(&:downcase)
