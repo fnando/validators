@@ -20,7 +20,7 @@ Metrics/PerceivedComplexity:
 Style/Alias:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Style/IfUnlessModifier:

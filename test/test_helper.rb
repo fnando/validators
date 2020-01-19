@@ -28,7 +28,7 @@ Time.zone = "America/Sao_Paulo"
 TLDs = Validators::TLD.all.sample(10)
 DISPOSABLE_EMAILS = Validators::DisposableHostnames.all.sample(10)
 
-Dir[File.join(__dir__, "support/**/*.rb")].each {|f| require f }
+Dir[File.join(__dir__, "support/**/*.rb")].sort.each {|f| require f }
 
 ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 load "schema.rb"
