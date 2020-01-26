@@ -22,4 +22,6 @@ module Validators
   require "validators/validates_hostname_format_of"
   require "validators/validates_reserved_hostname"
   require "validators/validates_reserved_username"
+
+  I18n.load_path += Dir[File.join(__dir__, "validators/locale/*.yml")]
 end

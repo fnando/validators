@@ -21,7 +21,8 @@ class DisposableEmailTest < Minitest::Test
       user = User.new(email: "user@custom.#{domain}")
       user.valid?
 
-      assert_includes user.errors[:email], I18n.t("activerecord.errors.messages.disposable_email")
+      assert_includes user.errors[:email],
+                      "is not allowed (high-bounce domain)"
     end
   end
 

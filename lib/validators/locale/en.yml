@@ -1,0 +1,27 @@
+---
+en:
+  activemodel: &activemodel
+    errors:
+      messages:
+        disposable_email: "is not allowed (high-bounce domain)"
+        invalid_cnpj: "is not a valid CNPJ"
+        invalid_cpf: "is not a valid CPF"
+        invalid_date: "is not a valid date"
+        invalid_date_after: "needs to be after %{date}"
+        invalid_date_before: "needs to be before %{date}"
+        invalid_email: "is not a valid address"
+        invalid_hostname: "does not have a valid hostname"
+        invalid_ip_address: "is not a valid IP address"
+        invalid_ipv4_address: "is not a valid IPv4 address"
+        invalid_ipv6_address: "is not a valid IPv6 address"
+        invalid_owner: "is not associated with your user"
+        invalid_ssh_private_key: "is not a valid private SSH key"
+        invalid_ssh_private_key_bits: "needs to be at least %{required} bits; got %{value} bits instead"
+        invalid_ssh_private_key_type: "must be a %{value} key"
+        invalid_ssh_public_key: "is not a valid public SSH key"
+        invalid_url: "is not a valid address"
+        reserved_hostname: "%{value} is a reserved hostname"
+        reserved_username: "%{value} is a reserved username"
+
+  activerecord:
+    <<: *activemodel

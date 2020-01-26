@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
-require "simplecov"
-require "simplecov-console"
-
 $VERBOSE = nil
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  SimpleCov::Formatter::Console,
-  SimpleCov::Formatter::HTMLFormatter
-])
+require "simplecov"
+SimpleCov.start
 
 SimpleCov.start do
   add_filter "test/support"
@@ -30,9 +25,6 @@ Dir[File.join(__dir__, "support/**/*.rb")].sort.each {|f| require f }
 
 ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 load "schema.rb"
-
-I18n.enforce_available_locales = false
-I18n.load_path << File.join(__dir__, "support/translations.yml")
 
 module Minitest
   class Test
