@@ -32,7 +32,8 @@ class User < ActiveRecord::Base
 end
 ```
 
-By default, it rejects disposable e-mails (e.g. mailinator). This loads ~15kb, but you can disable this validation by setting `disposable: true`.
+By default, it rejects disposable e-mails (e.g. mailinator). This loads ~15kb,
+but you can disable this validation by setting `disposable: true`.
 
 ```ruby
 class User < ActiveRecord::Base
@@ -143,9 +144,37 @@ class Server < ActiveRecord::Base
 end
 ```
 
+### validates_reserved_username / validates_reserved_hostname
+
+The compiled list will be used for both username and hostname validations.
+
+```ruby
+class Server < ActiveRecord::Base
+  validates_reserved_hostname :hostname
+end
+
+class User < ActiveRecord::Base
+  validates_reserved_username :username
+end
+```
+
+You can also provide your own list if you want. Any string that starts with `/`
+will be parsed with `Regexp.compile`.
+
+```ruby
+ReservedUsernames = Validators::ReservedHostnames.parse_list([
+  "www",
+  "/www[0-9-]+/"
+])
+
+class User < ActiveRecord::Base
+  validates_reserved_username, in: ReservedUsernames
+end
+```
+
 ## Maintainer
 
-* [Nando Vieira](http://simplesideias.com.br)
+* [Nando Vieira](http://nandovieira.com)
 
 ## License
 

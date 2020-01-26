@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
+def build_model(&block)
+  Class.new do
+    include ActiveModel::Model
+
+    def self.name
+      "SomeModel"
+    end
+
+    instance_eval(&block)
+  end
+end
+
 class User < ActiveRecord::Base
   has_many :tasks
   has_many :categories

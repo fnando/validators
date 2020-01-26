@@ -1,3 +1,4 @@
+---
 en:
   activerecord: &activerecord
     errors:
@@ -16,6 +17,8 @@ en:
         invalid_cnpj: "is not a valid CNPJ"
         disposable_email: "is not allowed (high-bounce domain)"
         invalid_hostname: "does not have a valid hostname"
+        reserved_hostname: "%{value} is a reserved hostname"
+        reserved_username: "%{value} is a reserved username"
 
   activemodel:
     <<: *activerecord

@@ -3,9 +3,7 @@
 require "simplecov"
 require "simplecov-console"
 
-SimpleCov.minimum_coverage 100
-SimpleCov.minimum_coverage_by_file 100
-SimpleCov.refuse_coverage_drop
+$VERBOSE = nil
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::Console,

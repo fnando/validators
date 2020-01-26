@@ -8,6 +8,8 @@ module Validators
   require "validators/tld"
   require "validators/hostname"
   require "validators/disposable_hostnames"
+  require "validators/reserved_hostnames"
+
   require "validators/validates_datetime"
   require "validators/validates_ip_address"
   require "validators/validates_email_format_of"
@@ -18,4 +20,6 @@ module Validators
   require "validators/validates_ssh_private_key"
   require "validators/validates_ssh_public_key"
   require "validators/validates_hostname_format_of"
+  require "validators/validates_reserved_hostname"
+  require "validators/validates_reserved_username"
 end
