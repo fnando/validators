@@ -15,19 +15,24 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map {|f| File.basename(f) }
+  s.executables   = `git ls-files -- bin/*`
+                    .split("\n")
+                    .map {|f| File.basename(f) }
   s.require_paths = ["lib"]
 
   s.add_development_dependency "activerecord"
+  s.add_development_dependency "aitch"
   s.add_development_dependency "cpf_cnpj"
   s.add_development_dependency "minitest-utils"
   s.add_development_dependency "mocha"
+  s.add_development_dependency "nokogiri"
   s.add_development_dependency "pry-meta"
   s.add_development_dependency "rake"
   s.add_development_dependency "rubocop"
   s.add_development_dependency "rubocop-fnando"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "simplecov-console"
+  s.add_development_dependency "simpleidn"
   s.add_development_dependency "sqlite3", "~> 1.4"
   s.add_development_dependency "sshkey"
 end

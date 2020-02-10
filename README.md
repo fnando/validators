@@ -144,17 +144,24 @@ class Server < ActiveRecord::Base
 end
 ```
 
-### validates_reserved_username / validates_reserved_hostname
+### validates_username / validates_subdomain
 
-The compiled list will be used for both username and hostname validations.
+A valid username/subdomain follows the hostname label validation:
+
+- maximum length is 63 characters
+- allowed characters are a-z, A-Z, 0-9 and hyphen
+- cannot begin or end with a hyphen
+- cannot consist of numeric values only
+
+The compiled list will be used for both username and subdomain validations.
 
 ```ruby
 class Server < ActiveRecord::Base
-  validates_reserved_hostname :hostname
+  validates_subdomain :subdomain
 end
 
 class User < ActiveRecord::Base
-  validates_reserved_username :username
+  validates_username :username
 end
 ```
 
@@ -168,7 +175,15 @@ ReservedUsernames = Validators::ReservedHostnames.parse_list([
 ])
 
 class User < ActiveRecord::Base
-  validates_reserved_username, in: ReservedUsernames
+  validates_username :username, in: ReservedUsernames
+end
+```
+
+To disable the reserved validation, use `reserved: false`.
+
+```ruby
+class User < ActiveRecord::Base
+  validates_username :username, reserved: false
 end
 ```
 

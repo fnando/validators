@@ -20,8 +20,10 @@ en:
         invalid_ssh_private_key_type: "must be a %{value} key"
         invalid_ssh_public_key: "is not a valid public SSH key"
         invalid_url: "is not a valid address"
-        reserved_hostname: "%{value} is a reserved hostname"
+        reserved_subdomain: "%{value} is a reserved subdomain"
+        invalid_subdomain: "is invalid"
         reserved_username: "%{value} is a reserved username"
+        invalid_username: "is invalid"
 
   activerecord:
     <<: *activemodel

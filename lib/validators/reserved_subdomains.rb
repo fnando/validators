@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Validators
-  class ReservedHostnames
-    FILE_PATH = File.expand_path("../../data/reserved_hostnames.json", __dir__)
+  class ReservedSubdomains
+    FILE_PATH = File.expand_path("../../data/reserved_subdomains.json", __dir__)
 
     def self.reserved?(hostname, matchers = nil)
       matchers = parse_list(matchers) if matchers

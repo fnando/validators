@@ -28,3 +28,8 @@ Style/IfUnlessModifier:
 
 Metrics/MethodLength:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - bin/**/*
+    - "*.gemspec"
