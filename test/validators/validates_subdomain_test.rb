@@ -3,6 +3,18 @@
 require "test_helper"
 
 class ValidatesSubdomainTest < Minitest::Test
+  test "don't explode with nil values" do
+    model = build_model do
+      attr_accessor :subdomain
+      validates_subdomain :subdomain
+    end
+
+    instance = model.new(subdomain: nil)
+
+    refute instance.valid?
+    assert_includes instance.errors[:subdomain], "is invalid"
+  end
+
   test "rejects invalid subdomain" do
     model = build_model do
       attr_accessor :subdomain

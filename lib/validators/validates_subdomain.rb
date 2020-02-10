@@ -7,6 +7,8 @@ module ActiveModel
         return if value.blank? && options[:allow_blank]
         return if value.nil? && options[:allow_nil]
 
+        value = value.to_s
+
         validate_reserved_subdomain(record, attribute, value)
         validate_format(record, attribute, value)
       end
