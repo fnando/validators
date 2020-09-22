@@ -4,18 +4,22 @@
 require_relative "helpers"
 
 def ten_minute_mail
-  path = "disposable/10minutemail.json"
-  url = "https://10minutemail.com/10MinuteMail/resources/session/address"
+  path = "disposable/10minutemail.txt"
+  url = "https://10minutemail.com/session/address"
 
-  refresh_list(url: url, path: path) do |response|
-    _account, host = response.body.split("@")
+  20.times do
+    refresh_list(url: url, path: path) do |response|
+      _account, host = response.data.fetch("address").split("@")
 
-    [host]
+      [host]
+    end
+
+    sleep random_timeout
   end
 end
 
 def temp_mail
-  path = "disposable/tempmail.json"
+  path = "disposable/tempmail.txt"
   url = "https://api4.temp-mail.org/request/domains/format/json"
 
   refresh_list(url: url, path: path) do |response|
@@ -24,7 +28,7 @@ def temp_mail
 end
 
 def temp_mail_address
-  path = "disposable/tempmailaddress.json"
+  path = "disposable/tempmailaddress.txt"
   url = "https://www.tempmailaddress.com/index/index"
 
   refresh_list(url: url, path: path) do |response|
@@ -37,7 +41,7 @@ def temp_mail_address
 end
 
 def tempmail_io
-  path = "disposable/tempmail_io.json"
+  path = "disposable/tempmail_io.txt"
   url = "https://api.internal.temp-mail.io/api/v2/domains"
 
   refresh_list(url: url, path: path) do |response|
@@ -46,69 +50,67 @@ def tempmail_io
 end
 
 def gmailnator
-  path = "disposable/gmailnator.json"
-  url = "https://gmailnator.com/index/indexquery"
+  emails = []
 
-  refresh_list(
-    verb: :post,
-    url: url,
-    path: path,
-    params: {action: "GenerateEmail"}
-  ) do |response|
-    email = response.body.gsub(/(\+[^@]+)/, "")
-    [email]
+  5.times do
+    url = "https://gmailnator.com/bulk-emails"
+    default_headers = {"user-agent" => USER_AGENT.sample}
+
+    response = Aitch.get(url: url, headers: default_headers)
+
+    throw "Received #{response.status} when getting CSRF token" unless response.ok?
+
+    cookie_header = response.headers["set-cookie"]
+    attr = response.data.css("#csrf_token").first
+    csrf_token = attr[:value]
+    csrf_field = attr[:name]
+
+    response = Aitch.post(
+      url: url,
+      params: {email_list: "1000", email: [3], csrf_field => csrf_token},
+      headers: default_headers.merge({"cookie" => cookie_header})
+    )
+
+    throw "Received #{response.status} when fetching list" unless response.ok?
+
+    emails += response.data.css("#email-list-message a").map do |node|
+      mailbox, domain = node.text.gsub(/\+[^@]+/, "").split("@")
+      mailbox = mailbox.gsub(/\./m, "")
+      "#{mailbox}@#{domain}"
+    end
+
+    sleep random_timeout
   end
-end
 
-def prepare_patterns(domains)
-  new_domains = domains.map do |domain|
-    {
-      domain: domain,
-      processed: domain.gsub(/\..*?$/, "")
-    }
-  end
-
-  stats = new_domains
-          .count_by {|info| info[:processed] }
-          .select {|_processed, count| count > 2 }
-
-  stats_map = stats.each_with_object({}) do |(name, count), buffer|
-    buffer[name] = count
-  end
-
-  domains = new_domains
-            .reject {|info| stats_map[info[:processed]] }
-            .map {|info| info[:domain] }
-  domains += stats_map.keys.map {|processed| "/#{processed}\\..+$/" }
-
-  domains.select {|domain| domain.start_with?("/") }
+  append_to_file("disposable/gmailnator.txt", emails)
 end
 
 def domain_scraping(name, url, selector)
-  puts "=> scraping #{url}"
+  timeout(10) do
+    puts "=> Scraping #{url}"
 
-  selector, value_selector = selector.split("::")
-  path = "disposable/#{name}.json"
-  host_regex = /@?(.*?(\.[^.]+)+)/
+    selector, value_selector = selector.split("::")
+    path = "disposable/#{name}.txt"
+    host_regex = /@?(.*?(\.[^.]+)+)/
 
-  refresh_list(url: url, path: path) do |response|
-    new_domains = response
-                  .data
-                  .css(selector)
-                  .map {|element| process_scraping(element, value_selector) }
+    refresh_list(url: url, path: path) do |response|
+      new_domains = response
+                    .data
+                    .css(selector)
+                    .map {|element| process_scraping(element, value_selector) }
 
-    new_domains = new_domains
-                  .map(&:squeeze)
-                  .map(&:strip)
-                  .reject(&:empty?)
-                  .map {|domain| domain[host_regex, 1]&.squeeze&.tr("@", "") }
-                  .reject(&:nil?)
-                  .reject(&:empty?)
-                  .map {|domain| domain.gsub(/\s*\((.*?)\)/, "") }
+      new_domains = new_domains
+                    .map(&:squish)
+                    .reject(&:empty?)
+                    .map {|domain| domain[host_regex, 1]&.squish&.tr("@", "") }
+                    .reject(&:nil?)
+                    .reject(&:empty?)
+                    .map {|domain| domain.gsub(/\s*\((.*?)\)/, "") }
 
-    raise "No #{name} hosts found" if new_domains.empty?
+      raise "No #{name} hosts found" if new_domains.empty?
 
-    new_domains
+      new_domains
+    end
   end
 rescue StandardError => error
   puts "=> [ERROR] Unable to scrape #{url}; #{error.class}: #{error.message}"
@@ -139,7 +141,7 @@ def load_github_url(url)
   puts "=> Fetching #{url}"
 
   basename = URI.parse(url).path[%r{/([^/]+/[^/]+)}, 1].tr("/", "_").tr("-", "_")
-  path = "disposable/#{basename}.json"
+  path = "disposable/#{basename}.txt"
   domains = load_file(path)
 
   ext = File.extname(url)
@@ -155,48 +157,43 @@ def load_github_url(url)
 
   append_to_file(path, domains)
   domains
-rescue error
+rescue StandardError => error
   puts "=> Unable to load #{url}; #{error.class}: #{error.message}"
   []
 end
 
-domains = []
 threads = []
 
-threads << thread { domains += load_github_url("https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json") }
-threads << thread { domains += load_github_url("https://raw.githubusercontent.com/andreis/disposable-email-domains/master/domains.json") }
-threads << thread { domains += load_github_url("https://raw.githubusercontent.com/FGRibreau/mailchecker/master/list.txt") }
-threads << thread { domains += load_github_url("https://raw.githubusercontent.com/willwhite/freemail/master/data/disposable.txt") }
-threads << thread { domains += load_github_url("https://raw.githubusercontent.com/maxmalysh/disposable-emails/master/disposable_emails/data/domains.txt") }
-threads << thread { domains += load_github_url("https://raw.githubusercontent.com/sneakykiwi/LeagueCreatorPublic/master/emails.txt") }
-threads << thread { domains += load_github_url("https://raw.githubusercontent.com/jespernissen/disposable-maildomain-list/master/disposable-maildomain-list.txt") }
-threads << thread { domains += load_github_url("https://raw.githubusercontent.com/wesbos/burner-email-providers/master/emails.txt") }
-threads << thread { domains += load_github_url("https://gist.github.com/fnando/dafe542cac13f831bbf5521a55248116/raw/f364d880cee5c878531e4f48be1744ff6ec84cb8/disposable.txt") }
-threads << thread { domains += ten_minute_mail }
-threads << thread { domains += temp_mail }
-threads << thread { domains += temp_mail_address }
-threads << thread { domains += tempmail_io }
-threads << thread { domains += load_file("disposable/disposable_manually_added.json") }
-threads << thread { domains += domain_scraping("guerrillamail", "https://www.guerrillamail.com/", "select option::attr(value)") }
-threads << thread { domains += domain_scraping("moakt", "https://www.moakt.com", "select option::attr(value)") }
-threads << thread { domains += domain_scraping("tempr", "https://tempr.email/", "select[name=DomainId] option::text()") }
-threads << thread { domains += domain_scraping("ically", "https://ically.net/", "select[name=domain] option::text()") }
-threads << thread { domains += domain_scraping("yepmail", "https://yepmail.co/", "select[name=domain] option::text()") }
-threads << thread { domains += domain_scraping("fake_email_generator", "https://fakemailgenerator.net", "[data-mailhost]::attr(data-mailhost)") }
-threads << thread { domains += domain_scraping("tempemails", "https://www.tempemails.net/", "select[name=domain] option::attr(value)") }
-threads << thread { domains += domain_scraping("clipmails", "https://clipmails.com/", "select[name=domain] option::attr(value)") }
-threads << thread { domains += domain_scraping("1secmail", "https://www.1secmail.com/", "select[id=domain] option::attr(value)") }
-threads << thread { domains += domain_scraping("emailfake", "https://generator.email", ".tt-suggestion p::text()") }
-threads << thread { domains += domain_scraping("emailfake", "https://emailfake.com/", ".tt-suggestion p::text()") }
-threads << thread { domains += domain_scraping("emailfake", "https://email-fake.com/", ".tt-suggestion p::text()") }
-threads << thread { domains += domain_scraping("receivemail", "https://www.receivemail.org/", "select[name=domain] option::text()") }
-threads << thread { domains += domain_scraping("itemp", "https://itemp.email", "select[name=domain] option::text()") }
-threads << thread { domains += domain_scraping("tempomail", "https://tempomail.org", "select[name=domain] option::text()") }
-threads << thread { domains += domain_scraping("tempmail", "https://tempmail.top", "select[name=domain] option::text()") }
-threads << thread { domains += domain_scraping("cs", "https://www.cs.email", "select[id=gm-host-select] option::text()") }
-threads << thread { domains += domain_scraping("tempmail", "https://tempmail.io/settings/", "select[id=domain] option::text()") }
-threads << thread { domains += domain_scraping("tempemail", "https://tempemail.co", "select[name=email_domain] option::text()") }
-threads << thread { domains += domain_scraping("tmail", "https://mytemp-email.com/", "a.domain-selector::text()") }
+threads << thread { load_github_url("https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json") }
+threads << thread { load_github_url("https://raw.githubusercontent.com/andreis/disposable-email-domains/master/domains.json") }
+threads << thread { load_github_url("https://raw.githubusercontent.com/FGRibreau/mailchecker/master/list.txt") }
+threads << thread { load_github_url("https://raw.githubusercontent.com/willwhite/freemail/master/data/disposable.txt") }
+threads << thread { load_github_url("https://raw.githubusercontent.com/maxmalysh/disposable-emails/master/disposable_emails/data/domains.txt") }
+threads << thread { load_github_url("https://raw.githubusercontent.com/jespernissen/disposable-maildomain-list/master/disposable-maildomain-list.txt") }
+threads << thread { load_github_url("https://raw.githubusercontent.com/wesbos/burner-email-providers/master/emails.txt") }
+threads << thread { load_github_url("https://gist.github.com/fnando/dafe542cac13f831bbf5521a55248116/raw/disposable.txt") }
+threads << thread { ten_minute_mail }
+threads << thread { temp_mail }
+threads << thread { temp_mail_address }
+threads << thread { tempmail_io }
+threads << thread { load_file("disposable/disposable_manually_added.txt") }
+threads << thread { domain_scraping("guerrillamail", "https://www.guerrillamail.com/", "select option::attr(value)") }
+threads << thread { domain_scraping("moakt", "https://www.moakt.com", "select option::attr(value)") }
+threads << thread { domain_scraping("tempr", "https://tempr.email/", "select[name=DomainId] option::text()") }
+threads << thread { domain_scraping("yepmail", "https://yepmail.co/", "select[name=domain] option::text()") }
+threads << thread { domain_scraping("fake_email_generator", "https://fakemailgenerator.net", "[data-mailhost]::attr(data-mailhost)") }
+threads << thread { domain_scraping("tempemails", "https://www.tempemails.net/", "select[name=domain] option::attr(value)") }
+threads << thread { domain_scraping("clipmails", "https://clipmails.com/", "select[name=domain] option::attr(value)") }
+threads << thread { domain_scraping("1secmail", "https://www.1secmail.com/", "select[id=domain] option::attr(value)") }
+threads << thread { domain_scraping("emailfake", "https://generator.email", ".tt-suggestion p::text()") }
+threads << thread { domain_scraping("emailfake", "https://emailfake.com/", ".tt-suggestion p::text()") }
+threads << thread { domain_scraping("emailfake", "https://email-fake.com/", ".tt-suggestion p::text()") }
+threads << thread { domain_scraping("receivemail", "https://www.receivemail.org/", "select[name=domain] option::text()") }
+threads << thread { domain_scraping("itemp", "https://itemp.email", "select[name=domain] option::text()") }
+threads << thread { domain_scraping("cs", "https://www.cs.email", "select[id=gm-host-select] option::text()") }
+threads << thread { domain_scraping("tempmail", "https://tempmail.io/settings/", "select[id=domain] option::text()") }
+threads << thread { domain_scraping("tempemail", "https://tempemail.co", "select[name=email_domain] option::text()") }
+threads << thread { domain_scraping("tmail", "https://mytemp-email.com/", "a.domain-selector::text()") }
 
 threads.each_slice(5) do |slice|
   slice.each(&:join)
@@ -204,17 +201,30 @@ end
 
 threads.clear
 
-# Unprocessed domains
-save_file("disposable_raw.json", domains)
+domains = []
 
-domains.map!(&:downcase)
-domains = root_domains(domains)
+puts "=> Loading disposable_domains.txt"
+domains += File.read("#{__dir__}/../data/disposable_domains.txt").lines.map(&:chomp)
 
-# All disposable domains, unfiltered
-save_file("disposable.json", domains)
+puts "=> Loading disposable/*.txt"
+Dir["./data/disposable/**/*.txt"].map do |file|
+  file = File.expand_path(file)
+  domains += File.read(file).lines.map(&:chomp).flatten.compact
+end
 
-# All disposable domains, with patterns
-save_file("disposable_patterns.json", prepare_patterns(domains))
+ignore_domains = %w[gmail.com hotmail.com]
 
-# Emails being used as proxy.
-save_file("disposable_emails.json", gmailnator)
+puts "=> Normalize domains (count: #{domains.size})"
+domains = domains
+          .uniq
+          .map {|domain| RootDomain.call(domain.split("@").last.downcase) }
+          .compact
+          .uniq
+          .reject {|domain| ignore_domains.include?(domain) }
+
+puts "=> Saving domains (count: #{domains.size})"
+save_file("disposable_domains.txt", domains)
+
+emails = gmailnator
+puts "=> Saving email proxies (count: #{emails.size})"
+save_file("disposable_emails.txt", emails)

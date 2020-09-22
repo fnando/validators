@@ -33,3 +33,6 @@ Metrics/BlockLength:
   Exclude:
     - bin/**/*
     - "*.gemspec"
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: false

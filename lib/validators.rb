@@ -8,6 +8,7 @@ module Validators
   require "validators/tld"
   require "validators/hostname"
   require "validators/disposable_hostnames"
+  require "validators/disposable_emails"
   require "validators/reserved_subdomains"
 
   require "validators/validates_datetime"

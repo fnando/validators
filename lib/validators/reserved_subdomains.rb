@@ -2,7 +2,7 @@
 
 module Validators
   class ReservedSubdomains
-    FILE_PATH = File.expand_path("../../data/reserved_subdomains.json", __dir__)
+    FILE_PATH = File.expand_path("../../data/reserved_subdomains.txt", __dir__)
 
     def self.reserved?(hostname, matchers = nil)
       matchers = parse_list(matchers) if matchers
@@ -11,9 +11,7 @@ module Validators
     end
 
     def self.all
-      @all ||= JSON
-               .parse(File.read(FILE_PATH))
-               .map {|matcher| parse(matcher) }
+      @all ||= File.read(FILE_PATH).lines.map {|matcher| parse(matcher.chomp) }
     end
 
     def self.parse(matcher)

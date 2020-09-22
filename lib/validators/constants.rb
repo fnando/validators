@@ -2,7 +2,7 @@
 
 module Validators
   EMAIL_FORMAT = /\A[a-z0-9]+([-._][a-z0-9]+)*(\+[^@]+)?@[a-z0-9]+([.-][a-z0-9]+)*\.[a-z]{2,}\z/i.freeze
-  MICROSOFT_EMAIL_FORMAT = /\A[\w][\w\d._-]*[\w\d_-]+(\+[\w\d]+)?@(hotmail|outlook).com\z/i.freeze
+  MICROSOFT_EMAIL_FORMAT = /\A[a-z0-9][a-z0-9._-]*[a-z0-9_-]+(\+[a-z0-9]+)?@(hotmail|outlook).com\z/i.freeze
 
   # Source: https://github.com/henrik/validates_url_format_of
   IPV4_PART = /\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]/.freeze # 0-255

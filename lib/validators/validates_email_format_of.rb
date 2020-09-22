@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "root_domain"
+
 module ActiveModel
   module Validations
     class EmailValidator < EachValidator
@@ -14,6 +16,7 @@ module ActiveModel
 
         validate_tld(record, attribute, value, options) if check_tld
         validate_email_format(record, attribute, value, options)
+        validate_disposable_domain(record, attribute, value, options) unless allow_disposable
         validate_disposable_email(record, attribute, value, options) unless allow_disposable
       end
 
@@ -41,12 +44,24 @@ module ActiveModel
         )
       end
 
-      def validate_disposable_email(record, attribute, value, _options)
-        hostname = value.to_s.split(AT_SIGN).last.to_s.downcase
+      def validate_disposable_domain(record, attribute, value, _options)
+        return unless value
 
-        return if Validators::DisposableHostnames.all.none? do |disposable_hostname|
-          hostname == disposable_hostname || hostname.end_with?(".#{disposable_hostname}")
-        end
+        hostname = value.to_s.split(AT_SIGN).last.to_s.downcase
+        root_domain = RootDomain.call(hostname)
+
+        return unless Validators::DisposableHostnames.all.include?(root_domain)
+
+        record.errors.add(
+          attribute,
+          :disposable_domain,
+          value: value
+        )
+      end
+
+      def validate_disposable_email(record, attribute, value, _options)
+        return unless value
+        return unless Validators::DisposableEmails.include?(value)
 
         record.errors.add(
           attribute,

@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "nokogiri"
   s.add_development_dependency "pry-meta"
   s.add_development_dependency "rake"
+  s.add_development_dependency "root_domain"
   s.add_development_dependency "rubocop"
   s.add_development_dependency "rubocop-fnando"
   s.add_development_dependency "simplecov"
@@ -35,4 +36,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "simpleidn"
   s.add_development_dependency "sqlite3", "~> 1.4"
   s.add_development_dependency "sshkey"
+  s.add_development_dependency "whois"
+  s.add_development_dependency "whois-parser"
 end

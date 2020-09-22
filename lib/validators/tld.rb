@@ -2,10 +2,10 @@
 
 module Validators
   class TLD
-    FILE_PATH = File.expand_path("../../data/tld.json", __dir__)
+    FILE_PATH = File.expand_path("../../data/tld.txt", __dir__)
 
     def self.all
-      @all ||= JSON.parse(File.read(FILE_PATH))
+      @all ||= File.read(FILE_PATH).lines.map(&:chomp)
     end
 
     def self.host_with_valid_tld?(host)

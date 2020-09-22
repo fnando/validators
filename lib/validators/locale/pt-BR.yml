@@ -4,6 +4,7 @@ pt-BR:
     errors:
       messages:
         disposable_email: "não é permitido (e-mail temporário)"
+        disposable_domain: "não é permitido (e-mail temporário)"
         invalid_cnpj: "não é um CNPJ válido"
         invalid_cpf: "não é um CPF válido"
         invalid_date: "não é uma data válida"

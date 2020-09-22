@@ -12,10 +12,12 @@ class ValidatesEmailFormatOfTest < Minitest::Test
   VALID_EMAILS.each do |email|
     test "accepts #{email.inspect} as a valid email" do
       user = User.new(email: email, corporate_email: email)
-      assert user.valid?
+      user.valid?
+      assert_empty user.errors
 
       user = Person.new(email: email)
-      assert user.valid?
+      user.valid?
+      assert_empty user.errors
     end
   end
 

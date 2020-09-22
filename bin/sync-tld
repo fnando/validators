@@ -10,11 +10,11 @@ tlds.map!(&:downcase)
 tlds.map!(&:strip)
 tlds.map! {|tld| SimpleIDN.to_ascii(tld) }
 
-save_file("tld.json", tlds)
+save_file("tld.txt", tlds)
 
 country_tlds = JSON.parse(http_request(:get, "https://github.com/samayo/country-json/raw/master/src/country-by-domain-tld.json").body, symbolize_names: true)
 country_tlds = country_tlds
                .reject {|info| info[:tld].nil? }
                .map {|info| info[:tld].gsub(/^\./, "") }
 
-save_file("country_tlds.json", country_tlds)
+save_file("country_tlds.txt", country_tlds)

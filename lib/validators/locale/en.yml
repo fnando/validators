@@ -3,7 +3,8 @@ en:
   activemodel: &activemodel
     errors:
       messages:
-        disposable_email: "is not allowed (high-bounce domain)"
+        disposable_email: "is not allowed (high-bounce email)"
+        disposable_domain: "is not allowed (high-bounce domain)"
         invalid_cnpj: "is not a valid CNPJ"
         invalid_cpf: "is not a valid CPF"
         invalid_date: "is not a valid date"

@@ -2,10 +2,10 @@
 
 module Validators
   class DisposableHostnames
-    FILE_PATH = File.expand_path("../../data/disposable.json", __dir__)
+    FILE_PATH = File.expand_path("../../data/disposable_domains.txt", __dir__)
 
     def self.all
-      @all ||= JSON.parse(File.read(FILE_PATH))
+      @all ||= File.read(FILE_PATH).lines.map(&:chomp)
     end
   end
 end

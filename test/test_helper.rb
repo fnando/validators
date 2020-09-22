@@ -17,9 +17,25 @@ require "active_support/all"
 require "minitest/utils"
 require "minitest/autorun"
 
+def build_email_with_filter(email)
+  mailbox, domain = email.split("@")
+  "#{mailbox}+#{SecureRandom.hex(3)}@#{domain}"
+end
+
+def build_email_with_dots(email)
+  mailbox, domain = email.split("@")
+  new_mailbox = mailbox.chars.map {|char| [char, "."] }.flatten[0..-2].join
+
+  "#{new_mailbox}@#{domain}"
+end
+
 Time.zone = "America/Sao_Paulo"
 TLDs = Validators::TLD.all.sample(10)
-DISPOSABLE_EMAILS = Validators::DisposableHostnames.all.sample(10)
+DISPOSABLE_DOMAINS = Validators::DisposableHostnames.all.sample(10)
+DISPOSABLE_EMAILS = Validators::DisposableEmails.all +
+                    Validators::DisposableEmails.all.sample(10).map {|email| build_email_with_filter(email) } +
+                    Validators::DisposableEmails.all.sample(10).map {|email| build_email_with_dots(email) } +
+                    Validators::DisposableEmails.all.sample(10).map {|email| build_email_with_filter(build_email_with_dots(email)) }
 
 Dir[File.join(__dir__, "support/**/*.rb")].sort.each {|f| require f }
 
