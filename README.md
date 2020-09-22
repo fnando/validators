@@ -32,8 +32,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-By default, it rejects disposable e-mails (e.g. mailinator). This loads ~15kb,
-but you can disable this validation by setting `disposable: true`.
+By default, it rejects disposable e-mails (e.g. mailinator). This loads a lot of data (~1.7MB), but you can disable this validation by setting `disposable: true`.
 
 ```ruby
 class User < ActiveRecord::Base
@@ -56,7 +55,7 @@ class User < ActiveRecord::Base
   validates_url_format_of :site
 
   # validates TLD against list of valid TLD.
-  # Loads ~5kb of text.
+  # Loads ~10KB of text.
   validates_url_format_of :site, tld: true
 end
 ```
@@ -153,7 +152,8 @@ A valid username/subdomain follows the hostname label validation:
 - cannot begin or end with a hyphen
 - cannot consist of numeric values only
 
-The compiled list will be used for both username and subdomain validations.
+The compiled list will be used for both username and subdomain validations. 
+This validation loads ~20KB of text.
 
 ```ruby
 class Server < ActiveRecord::Base
