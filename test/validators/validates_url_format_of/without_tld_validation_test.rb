@@ -47,4 +47,22 @@ class ValidatesurlFormatUrlWithoutTldValidationTest < Minitest::Test
     user = User.new(url: "")
     refute user.valid?
   end
+
+  test "accepts invalid TLD (alternative syntax)" do
+    user_model = Class.new do
+      include ActiveModel::Validations
+      attr_accessor :site_url
+
+      def self.name
+        "User"
+      end
+
+      validates :site_url, url: {tld: false}
+    end
+
+    user = user_model.new
+    user.site_url = "https://example.xy"
+
+    assert user.valid?
+  end
 end
