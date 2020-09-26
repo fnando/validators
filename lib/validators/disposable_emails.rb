@@ -2,10 +2,14 @@
 
 module Validators
   class DisposableEmails
-    FILE_PATH = File.expand_path("../../data/disposable_emails.txt", __dir__)
-
     def self.all
-      @all ||= File.read(FILE_PATH).lines.map(&:chomp)
+      @all ||=
+        begin
+          require "email_data"
+          EmailData.disposable_emails
+        rescue LoadError
+          raise "email_data is not part of the bundle. Add it to Gemfile."
+        end
     end
 
     def self.include?(email)

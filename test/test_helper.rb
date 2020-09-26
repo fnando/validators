@@ -30,7 +30,7 @@ end
 
 Time.zone = "America/Sao_Paulo"
 TLDs = Validators::TLD.all.sample(10)
-DISPOSABLE_DOMAINS = Validators::DisposableHostnames.all.sample(10)
+DISPOSABLE_DOMAINS = Validators::DisposableDomains.all.sample(10)
 DISPOSABLE_EMAILS = Validators::DisposableEmails.all +
                     Validators::DisposableEmails.all.sample(10).map {|email| build_email_with_filter(email) } +
                     Validators::DisposableEmails.all.sample(10).map {|email| build_email_with_dots(email) } +

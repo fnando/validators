@@ -50,7 +50,7 @@ module ActiveModel
         hostname = value.to_s.split(AT_SIGN).last.to_s.downcase
         root_domain = RootDomain.call(hostname)
 
-        return unless Validators::DisposableHostnames.all.include?(root_domain)
+        return unless Validators::DisposableDomains.include?(root_domain)
 
         record.errors.add(
           attribute,

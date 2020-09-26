@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "activerecord"
   s.add_development_dependency "aitch"
   s.add_development_dependency "cpf_cnpj"
+  s.add_development_dependency "email_data"
   s.add_development_dependency "minitest-utils"
   s.add_development_dependency "mocha"
   s.add_development_dependency "nokogiri"
