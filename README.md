@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/fnando/validators.svg)](https://travis-ci.org/fnando/validators)
 [![Code Climate](https://codeclimate.com/github/fnando/validators/badges/gpa.svg)](https://codeclimate.com/github/fnando/validators)
-[![Test Coverage](https://codeclimate.com/github/fnando/validators/badges/coverage.svg)](https://codeclimate.com/github/fnando/validators)
+[![Gem](https://img.shields.io/gem/v/validators.svg)](https://rubygems.org/gems/validators)
+[![Gem](https://img.shields.io/gem/dt/validators.svg)](https://rubygems.org/gems/validators)
 
 Add some nice ActiveModel/ActiveRecord validators.
 
@@ -32,7 +33,9 @@ class User < ActiveRecord::Base
 end
 ```
 
-By default, it rejects disposable e-mails (e.g. mailinator). This loads a lot of data (~1.7MB), but you can disable this validation by setting `disposable: true`.
+By default, it rejects disposable e-mails (e.g. mailinator). This loads a lot of
+data (~1.7MB), but you can disable this validation by setting
+`disposable: true`.
 
 ```ruby
 class User < ActiveRecord::Base
@@ -135,7 +138,6 @@ Rules:
 - labels do not consist of numeric values only
 - TLD validation (optional)
 
-
 ```ruby
 class Server < ActiveRecord::Base
   validates_hostname :hostname
@@ -152,8 +154,8 @@ A valid username/subdomain follows the hostname label validation:
 - cannot begin or end with a hyphen
 - cannot consist of numeric values only
 
-The compiled list will be used for both username and subdomain validations. 
-This validation loads ~20KB of text.
+The compiled list will be used for both username and subdomain validations. This
+validation loads ~20KB of text.
 
 ```ruby
 class Server < ActiveRecord::Base
@@ -189,27 +191,25 @@ end
 
 ## Maintainer
 
-* [Nando Vieira](http://nandovieira.com)
+- [Nando Vieira](http://nandovieira.com)
 
 ## License
 
 (The MIT License)
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the 'Software'), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
