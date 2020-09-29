@@ -56,10 +56,8 @@ module ActiveModel
       #   end
       #
       def validates_ssh_private_key(*attr_names)
-        require "sshkey"
+        Validators.require_dependency! "sshkey"
         validates_with SshPrivateKeyValidator, _merge_attributes(attr_names)
-      rescue LoadError
-        raise "sshkey is not part of the bundle. Add it to Gemfile."
       end
     end
   end

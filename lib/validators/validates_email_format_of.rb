@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "root_domain"
-
 module ActiveModel
   module Validations
     class EmailValidator < EachValidator
@@ -79,6 +77,8 @@ module ActiveModel
       #   end
       #
       def validates_email_format_of(*attr_names)
+        Validators.require_dependency! "root_domain"
+        Validators.require_dependency! "email_data"
         validates_with EmailValidator, _merge_attributes(attr_names)
       end
 

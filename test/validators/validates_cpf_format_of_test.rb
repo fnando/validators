@@ -15,10 +15,10 @@ class ValidatesCpfFormatOfTest < Minitest::Test
     end
   end
 
-  test "fails when gem is not available" do
-    assert_raises do
+  test "fails when cpf_cnpj is not available" do
+    assert_raises(StandardError, /cpf_cnpj is not part of the bundle/) do
       Class.new do
-        expects(:require).with("cpf").raises(LoadError)
+        Validators.expects(:require).with("cpf_cnpj").raises(LoadError, "-- cpf_cnpj")
 
         include ActiveModel::Model
         validates_cpf_format_of :document

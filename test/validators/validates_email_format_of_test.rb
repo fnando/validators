@@ -9,6 +9,29 @@ class ValidatesEmailFormatOfTest < Minitest::Test
     Person.validates :email, email: true
   end
 
+  test "fails when email_data is not available" do
+    assert_raises(StandardError, /email_data is not part of the bundle/) do
+      Class.new do
+        Validators.expects(:require).with("root_domain")
+        Validators.expects(:require).with("email_data").raises(LoadError, "-- email_data")
+
+        include ActiveModel::Model
+        validates_email :email
+      end
+    end
+  end
+
+  test "fails when root_domain is not available" do
+    assert_raises(StandardError, /root_domain is not part of the bundle/) do
+      Class.new do
+        Validators.expects(:require).with("root_domain").raises(LoadError, "-- root_domain")
+
+        include ActiveModel::Model
+        validates_email :email
+      end
+    end
+  end
+
   VALID_EMAILS.each do |email|
     test "accepts #{email.inspect} as a valid email" do
       user = User.new(email: email, corporate_email: email)

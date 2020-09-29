@@ -25,10 +25,9 @@ module ActiveModel
       #   end
       #
       def validates_cpf_format_of(*attr_names)
+        Validators.require_dependency! "cpf_cnpj"
         require "cpf"
         validates_with CpfValidator, _merge_attributes(attr_names)
-      rescue LoadError
-        raise "cpf_cnpj is not part of the bundle. Add it to Gemfile."
       end
 
       alias_method :validates_cpf, :validates_cpf_format_of

@@ -5,10 +5,9 @@ module Validators
     def self.all
       @all ||=
         begin
-          require "email_data"
+          Validators.require_dependency! "root_domain"
+          Validators.require_dependency! "email_data"
           EmailData.disposable_emails
-        rescue LoadError
-          raise "email_data is not part of the bundle. Add it to Gemfile."
         end
     end
 
