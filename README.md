@@ -21,6 +21,11 @@ gem "validators"
 
 ## Usage
 
+**Notice**: Some validators will require additional dependencies; whenever you
+get a message like
+`gem-name is not part of the bundle. Add it to your project's Gemfile.`, all you
+have to do is adding that gem to your own project's Gemfile.
+
 ### validates_email_format_of
 
 ```ruby

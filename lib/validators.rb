@@ -25,4 +25,11 @@ module Validators
   require "validators/validates_username"
 
   I18n.load_path += Dir[File.join(__dir__, "validators/locale/*.yml")]
+
+  def self.require_dependency!(dep)
+    require dep
+  rescue LoadError
+    raise "#{dep} is not part of the bundle. " \
+          "Add it to your project's Gemfile."
+  end
 end

@@ -15,10 +15,10 @@ class ValidatesSshPrivateKeyCommonTest < Minitest::Test
     end
   end
 
-  test "fails when gem is not available" do
-    assert_raises do
+  test "fails when sshkey is not available" do
+    assert_raises(StandardError, /sshkey is not part of the bundle/) do
       Class.new do
-        expects(:require).with("sshkey").raises(LoadError)
+        Validators.expects(:require).with("sshkey").raises(LoadError.new("-- sshkey"))
 
         include ActiveModel::Model
         validates_ssh_private_key :key
