@@ -1,0 +1,95 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "open-uri"
+require "json"
+require "yaml"
+require "email_data"
+
+def fetch_nkkollaw
+  matchers = YAML.safe_load(URI.open("https://github.com/nkkollaw/reserved-subdomains/raw/master/reserved-subdomains.yaml").read).map(&:to_s)
+  matchers.map do |matcher|
+    next matcher unless matcher.start_with?("/")
+
+    matcher.gsub(%r{/(.*?)/}) do |_m, _group|
+      new_matcher = Regexp.last_match(1).gsub("[0-9]+", "[0-9-]*")
+      "/^#{new_matcher}$/"
+    end
+  end
+end
+
+def fetch_mottie
+  data = JSON.parse(URI.open("https://github.com/Mottie/github-reserved-names/raw/master/oddballs.json").read, symbolize_names: true)
+  data.keys.map(&:to_s)
+end
+
+def fetch_jedireza
+  data = JSON.parse(URI.open("https://github.com/jedireza/reserved-subdomains/raw/master/names.json").read, symbolize_names: true)
+  data.map(&:to_s)
+end
+
+def fetch_mvila
+  data = JSON.parse(URI.open("https://github.com/mvila/reserved-usernames/raw/master/data.json").read)
+  data.map(&:to_s)
+end
+
+def fetch_lukes
+  data = JSON.parse(URI.open("https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/raw/master/all/all.json").read)
+  data.map do |info|
+    info["alpha-2"].downcase
+  end
+end
+
+def fetch_dominicsayers
+  %w[
+    https://github.com/dominicsayers/reserved_subdomain/raw/master/lib/reserved_subdomain/literals/miscellaneous.txt
+  ].each_with_object([]) do |url, buffer|
+    data = URI.open(url).read.lines
+    buffer.push(*data.map(&:chomp))
+  end
+end
+
+subdomains = []
+subdomains << fetch_nkkollaw
+subdomains << fetch_mottie
+subdomains << fetch_jedireza
+subdomains << fetch_mvila
+subdomains << fetch_lukes
+subdomains << fetch_dominicsayers
+subdomains << ("a".."z").to_a
+subdomains << EmailData.tlds
+subdomains << %w[
+  /^db[0-9-]*$/
+  /^dc[0-9-]*$/
+  /^dev[0-9-]*$/
+  /^dns[0-9-]*$/
+  /^ftp[0-9-]*$/
+  /^host[0-9-]*$/
+  /^mail[0-9-]*$/
+  /^mx[0-9-]*$/
+  /^ns[0-9-]*$/
+  /^ntp[0-9-]*$/
+  /^server[0-9-]*$/
+  /^smtp[0-9-]*$/
+  /^static[0-9-]*$/
+  /^support[0-9-]*$/
+  /^test[0-9-]*$/
+  /^vpn[0-9-]*$/
+  /^web[0-9-]*$/
+  /^www[0-9-]*$/
+  /^your.+$/
+  /^[0-9-]+$/
+  eu
+  us
+]
+
+subdomains = subdomains.flatten.map do |subdomain|
+  next subdomain if subdomain.start_with?("/")
+
+  subdomain.gsub(/[-_]/, "")
+end
+
+File.open("./data/reserved_subdomains.txt", "w") do |file|
+  file << subdomains.flatten.uniq.sort.map(&:downcase).join("\n")
+end
