@@ -136,6 +136,7 @@ adult
 adv
 advanceautoparts
 advertising
+advisories
 ae
 aecom
 aeg
@@ -144,7 +145,6 @@ aero
 aes
 aetna
 af
-afamilycompany
 affiliate
 affiliates
 afginc
@@ -398,7 +398,6 @@ brother
 brussels
 bs
 bt
-budapest
 bug
 bugatti
 bugs
@@ -451,7 +450,6 @@ cars
 cart
 casa
 case
-caseih
 casestudies
 caseys
 cash
@@ -472,7 +470,6 @@ cc
 cd
 cdn
 cdw
-ceb
 celanese
 celgene
 centene
@@ -743,7 +740,6 @@ drupal
 dteenergy
 dtv
 dubai
-duck
 dukeenergy
 dunlop
 dupont
@@ -950,7 +946,6 @@ fs
 ftp
 ftr
 fujitsu
-fujixerox
 fun
 fund
 furniture
@@ -1008,7 +1003,6 @@ github
 gives
 giving
 gl
-glade
 glass
 gle
 global
@@ -1230,7 +1224,6 @@ item
 items
 itv
 itw
-iveco
 j
 jabber
 jabil
@@ -1243,7 +1236,6 @@ javanese
 javascript
 jbhunt
 jcb
-jcp
 jcpenney
 je
 jeep
@@ -1292,6 +1284,7 @@ kg
 kh
 ki
 kia
+kids
 kiewit
 kim
 kimberlyclark
@@ -1397,7 +1390,6 @@ live
 livejournal
 livenation
 living
-lixil
 lj
 lk
 lkqcorp
@@ -1435,7 +1427,6 @@ ltd
 ltda
 lu
 lundbeck
-lupin
 luxe
 luxury
 lv
@@ -1631,7 +1622,6 @@ networkip
 neustar
 new
 newellbrands
-newholland
 newmont
 news
 newscorp
@@ -1709,7 +1699,6 @@ oauth
 oauthclients
 obi
 observer
-off
 offer
 offers
 office
@@ -1732,7 +1721,6 @@ oneok
 ong
 onl
 online
-onyourside
 ooo
 open
 openid
@@ -1924,11 +1912,9 @@ query
 quest
 questdiagnostics
 quintiles
-qvc
 r
 racing
 radio
-raid
 ralphlauren
 random
 ranking
@@ -1999,7 +1985,6 @@ ril
 rio
 rip
 riteaid
-rmit
 ro
 rocher
 rocks
@@ -2071,7 +2056,6 @@ schools
 schule
 schwarz
 science
-scjohnson
 scot
 script
 scripts
@@ -2128,7 +2112,6 @@ shopping
 shouji
 show
 showtime
-shriram
 si
 signin
 signout
@@ -2176,6 +2159,7 @@ southerncompany
 southwest
 soy
 sp
+spa
 space
 spam
 spanish
@@ -2189,7 +2173,6 @@ spiritaero
 sport
 sports
 spot
-spreadbetting
 sql
 sr
 src
@@ -2262,7 +2245,6 @@ suzuki
 sv
 svn
 swatch
-swiftcover
 swiss
 sx
 sy
@@ -2646,12 +2628,12 @@ xn3bst00m
 xn3ds443g
 xn3e0b707e
 xn3hcrj9c
-xn3oq18vl8pn36a
 xn3pxu8k
 xn42c2d9a
 xn45br5cyl
 xn45brj9c
 xn45q11c
+xn4dbrk0ce
 xn4gbrim
 xn54b7fta0cc
 xn55qw42g

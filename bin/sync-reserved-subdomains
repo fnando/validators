@@ -6,9 +6,10 @@ require "open-uri"
 require "json"
 require "yaml"
 require "email_data"
+require "aitch"
 
 def fetch_nkkollaw
-  matchers = YAML.safe_load(URI.open("https://github.com/nkkollaw/reserved-subdomains/raw/master/reserved-subdomains.yaml").read).map(&:to_s)
+  matchers = YAML.safe_load(Aitch.get("https://github.com/nkkollaw/reserved-subdomains/raw/master/reserved-subdomains.yaml").body).map(&:to_s)
   matchers.map do |matcher|
     next matcher unless matcher.start_with?("/")
 
@@ -20,22 +21,22 @@ def fetch_nkkollaw
 end
 
 def fetch_mottie
-  data = JSON.parse(URI.open("https://github.com/Mottie/github-reserved-names/raw/master/oddballs.json").read, symbolize_names: true)
+  data = JSON.parse(Aitch.get("https://github.com/Mottie/github-reserved-names/raw/master/oddballs.json").body, symbolize_names: true)
   data.keys.map(&:to_s)
 end
 
 def fetch_jedireza
-  data = JSON.parse(URI.open("https://github.com/jedireza/reserved-subdomains/raw/master/names.json").read, symbolize_names: true)
+  data = JSON.parse(Aitch.get("https://github.com/jedireza/reserved-subdomains/raw/master/names.json").body, symbolize_names: true)
   data.map(&:to_s)
 end
 
 def fetch_mvila
-  data = JSON.parse(URI.open("https://github.com/mvila/reserved-usernames/raw/master/data.json").read)
+  data = JSON.parse(Aitch.get("https://github.com/mvila/reserved-usernames/raw/master/data.json").body)
   data.map(&:to_s)
 end
 
 def fetch_lukes
-  data = JSON.parse(URI.open("https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/raw/master/all/all.json").read)
+  data = JSON.parse(Aitch.get("https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/raw/master/all/all.json").body)
   data.map do |info|
     info["alpha-2"].downcase
   end
@@ -45,7 +46,7 @@ def fetch_dominicsayers
   %w[
     https://github.com/dominicsayers/reserved_subdomain/raw/master/lib/reserved_subdomain/literals/miscellaneous.txt
   ].each_with_object([]) do |url, buffer|
-    data = URI.open(url).read.lines
+    data = Aitch.get(url).body.lines
     buffer.push(*data.map(&:chomp))
   end
 end
