@@ -3,8 +3,8 @@ en:
   activemodel: &activemodel
     errors:
       messages:
-        disposable_email: "is not allowed (high-bounce email)"
         disposable_domain: "is not allowed (high-bounce domain)"
+        disposable_email: "is not allowed (high-bounce email)"
         invalid_cnpj: "is not a valid CNPJ"
         invalid_cpf: "is not a valid CPF"
         invalid_date: "is not a valid date"
@@ -17,14 +17,15 @@ en:
         invalid_ipv6_address: "is not a valid IPv6 address"
         invalid_owner: "is not associated with your user"
         invalid_ssh_private_key: "is not a valid private SSH key"
-        invalid_ssh_private_key_bits: "needs to be at least %{required} bits; got %{value} bits instead"
+        invalid_ssh_private_key_bits:
+          "needs to be at least %{required} bits; got %{value} bits instead"
         invalid_ssh_private_key_type: "must be a %{value} key"
         invalid_ssh_public_key: "is not a valid public SSH key"
-        invalid_url: "is not a valid address"
-        reserved_subdomain: "%{value} is a reserved subdomain"
         invalid_subdomain: "is invalid"
-        reserved_username: "%{value} is a reserved username"
+        invalid_url: "is not a valid address"
         invalid_username: "is invalid"
+        reserved_subdomain: "%{value} is a reserved subdomain"
+        reserved_username: "%{value} is a reserved username"
 
   activerecord:
     <<: *activemodel

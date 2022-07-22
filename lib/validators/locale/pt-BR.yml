@@ -3,8 +3,8 @@ pt-BR:
   activemodel: &activemodel
     errors:
       messages:
-        disposable_email: "não é permitido (e-mail temporário)"
         disposable_domain: "não é permitido (e-mail temporário)"
+        disposable_email: "não é permitido (e-mail temporário)"
         invalid_cnpj: "não é um CNPJ válido"
         invalid_cpf: "não é um CPF válido"
         invalid_date: "não é uma data válida"
@@ -17,11 +17,15 @@ pt-BR:
         invalid_ipv6_address: "não é um endereço IPv6 válido"
         invalid_owner: "não está associado ao seu usuário"
         invalid_ssh_private_key: "não é uma chave privada de SSH válida"
-        invalid_ssh_private_key_bits: "precisa ter pelo menos %{required} bits; a sua chave tem %{value} bits"
+        invalid_ssh_private_key_bits:
+          "precisa ter pelo menos %{required} bits; a sua chave tem %{value}
+          bits"
         invalid_ssh_private_key_type: "precisa ser uma chave %{value}"
         invalid_ssh_public_key: "não é uma chave pública de SSH válida"
+        invalid_subdomain: "é inválido"
         invalid_url: "não parece ser uma URL válida"
-        reserved_hostname: "%{value} é um hostname reservado"
+        invalid_username: "não é válido"
+        reserved_subdomain: "%{value} é um subdomínio reservado"
         reserved_username: "%{value} é nome de usuário reservado"
 
   activerecord:
