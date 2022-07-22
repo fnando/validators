@@ -11,13 +11,13 @@ module Validators
     # Extracted from Ruby 1.8.7
     def v6?(addr)
       # IPv6 (normal)
-      return true if /\A[\da-f]{1,4}(:[\da-f]{1,4})*\Z/i =~ addr
-      return true if /\A[\da-f]{1,4}(:[\da-f]{1,4})*::([\da-f]{1,4}(:[\da-f]{1,4})*)?\Z/i =~ addr
-      return true if /\A::([\da-f]{1,4}(:[\da-f]{1,4})*)?\Z/i =~ addr
+      return true if /\A[\da-f]{1,4}(:[\da-f]{1,4})*\Z/i.match?(addr)
+      return true if /\A[\da-f]{1,4}(:[\da-f]{1,4})*::([\da-f]{1,4}(:[\da-f]{1,4})*)?\Z/i.match?(addr)
+      return true if /\A::([\da-f]{1,4}(:[\da-f]{1,4})*)?\Z/i.match?(addr)
       # IPv6 (IPv4 compat)
-      return true if /\A[\da-f]{1,4}(:[\da-f]{1,4})*:/i =~ addr && v4?($')
-      return true if /\A[\da-f]{1,4}(:[\da-f]{1,4})*::([\da-f]{1,4}(:[\da-f]{1,4})*:)?/i =~ addr && v4?($')
-      return true if /\A::([\da-f]{1,4}(:[\da-f]{1,4})*:)?/i =~ addr && v4?($')
+      return true if /\A[\da-f]{1,4}(:[\da-f]{1,4})*:/i =~ addr && v4?(Regexp.last_match.post_match)
+      return true if /\A[\da-f]{1,4}(:[\da-f]{1,4})*::([\da-f]{1,4}(:[\da-f]{1,4})*:)?/i =~ addr && v4?(Regexp.last_match.post_match)
+      return true if /\A::([\da-f]{1,4}(:[\da-f]{1,4})*:)?/i =~ addr && v4?(Regexp.last_match.post_match)
 
       false
     end

@@ -19,8 +19,8 @@ module ActiveModel
       end
 
       def validate_email_format(record, attribute, value, options)
-        return if value.to_s =~ Validators::EMAIL_FORMAT
-        return if value.to_s =~ Validators::MICROSOFT_EMAIL_FORMAT
+        return if Validators::EMAIL_FORMAT.match?(value.to_s)
+        return if Validators::MICROSOFT_EMAIL_FORMAT.match?(value.to_s)
 
         record.errors.add(
           attribute,

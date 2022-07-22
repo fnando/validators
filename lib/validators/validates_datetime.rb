@@ -40,9 +40,10 @@ module ActiveModel
                  record.__send__(option) if record.respond_to?(option)
                end
 
-        if date.is_a?(Time)
+        case date
+        when Time
           value = value.to_time
-        elsif date.is_a?(Date)
+        when Date
           value = value.to_date
         end
 

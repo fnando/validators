@@ -13,9 +13,7 @@ class DisposableEmailTest < Minitest::Test
       assert_includes user.errors[:email],
                       I18n.t("activerecord.errors.messages.disposable_domain")
     end
-  end
 
-  DISPOSABLE_DOMAINS.each do |domain|
     test "rejects disposable e-mail with subdomain (custom.#{domain})" do
       User.validates_email_format_of :email
 

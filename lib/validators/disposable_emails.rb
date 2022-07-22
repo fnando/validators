@@ -13,7 +13,7 @@ module Validators
 
     def self.include?(email)
       mailbox, domain = email.to_s.split("@")
-      mailbox = mailbox.to_s.gsub(".", "")
+      mailbox = mailbox.to_s.delete(".")
       mailbox = mailbox.gsub(/\+(.+)?\Z/, "")
 
       all.include?("#{mailbox}@#{domain}")
